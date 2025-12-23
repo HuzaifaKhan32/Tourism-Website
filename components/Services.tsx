@@ -51,6 +51,14 @@ const Services: React.FC = () => {
     },
   };
 
+  // Function to get a dynamic placeholder if bgImage is missing
+  const getBackgroundImage = (service: typeof SERVICES[0]) => {
+    if (service.bgImage) return service.bgImage;
+    // Fallback to high-quality Unsplash search based on title
+    const query = encodeURIComponent(`travel ${service.title}`);
+    return `https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&q=80&w=800&sig=${service.id}`;
+  };
+
   return (
     <section id="services" className="relative w-full py-24 lg:py-32 z-20 bg-white dark:bg-background-dark overflow-hidden">
       {/* Abstract Background Map Watermark */}
@@ -122,7 +130,7 @@ const Services: React.FC = () => {
               {/* Card Background Image (Always visible, zooms on hover) */}
               <div 
                 className="absolute inset-0 opacity-[0.06] dark:opacity-[0.12] group-hover:opacity-[0.12] dark:group-hover:opacity-[0.22] transition-all duration-1000 pointer-events-none bg-cover bg-center scale-100 group-hover:scale-110"
-                style={{ backgroundImage: `url('${service.bgImage}')` }}
+                style={{ backgroundImage: `url('${getBackgroundImage(service)}')` }}
               />
 
               {/* Icon Container */}

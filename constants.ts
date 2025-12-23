@@ -18,7 +18,8 @@ export const NAV_LINKS = [
   { name: 'Destinations', href: '#popular-packages' },
   { name: 'Services', href: '#services' },
   { name: 'Visa Process', href: '#visa-process' },
-  { name: 'Corporate Travel', href: '#' }
+  { name: 'Expert Advice', href: '#team-videos' },
+  { name: 'About Us', href: '#footer' }
 ];
 
 export const STATS = [
@@ -174,4 +175,39 @@ export const VISA_STEPS = [
     icon: 'verified',
     description: 'Once approved, we securely collect your passport with the stamped visa and deliver it directly to your doorstep, making you ready for travel.'
   }
+];
+
+export const TEAM_VIDEOS = [
+  {
+    id: 1,
+    title: 'Welcome from CEO',
+    expert: 'John Doe — Chief Executive Officer',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAcP2YBTSwLYdqs7DBu-ZKvHvCuJUO6agLVOuBmhXq16hdvRTfvbBa1OHB3BXmce4vceAb3TAtzwo10m0aFU5JGjXbWhqD8x_Z1lWnCMALTVl8FMpa4xUR0KJEaxqrwaA00sv6eH3j7761C_NN_M6uEYwmjvwgLA9-Ta3ysb9eSRVs-Wdt5w1vbsfts570LHvlf3GhBukQJGAZ8e72GZM5KoEWB0P1u0-d5k8ewknLYsdgm8mkeLgflS270sHGnWUBxktLIzk1JAzrX'
+  },
+  {
+    id: 2,
+    title: 'Visa Expert Insights',
+    expert: 'Sarah Smith — Senior Consultant',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDTWr1f-HrHBuP6KUvsZs04glbqiA9HCIc0HwjgfImHJlgEDg8ThWZJdA5MRK3GpHLCceCv8g8Se0xkocz3QyzjlU1mis8WkxG6e15wrC9SHVQ7e8vZK0g0x_rv_o58slJtG-XXsPJGyez3Fm-kjU9E1C_mBUW-iLWuaKR6phjsmlM0kseIXgJwQ8xT30gdPKV-98HxsaQX4HNDNrcDAJDLuDxaYiR6oKubFogUs46aFthmzhIEtAtWI3QRnhLxogiNkkRiI_eLLe5a'
+  },
+  {
+    id: 3,
+    title: 'Customer Success Stories',
+    expert: 'David Lee — Client Relations',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_TKSgdCvyZ3OSoqY6B8o8JvU__KVOKNKklkdUhQij_GbwQMPUwQMXokIjdFXrlinfs_5EGDxmO1c-5lZopxI2B_bkjT4CMaMVWS4IEx63olTFQefXge8eaqQUwoP87I3ZeXUkPwkZ0CInvBWL7vnIiqDEIYoK16hOV7a7l8zl3oo47BK2e0YTPLFrO-kB0dnWAStJSmWOLORrevr0Qb0RHGImCMIXBAQhYg9a4zD8Q2ByKBNeyTQtiUKgOB5aXeCOmleiWuce112L'
+  },
+  {
+    id: 4,
+    title: 'Our Commitment to You',
+    expert: 'UNF Global Team',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBOqNgm4WiwRNxUqiIM3iYmnVUygooPQmJ-62BqBG9kTonc5TVxTmh_ODDCtHvtBOgKHmfW0hjy3kN_inEomJsSfF2189ypqZ1_TuV0_E89QetFU34Wv8w7uC9Hxadus4JXZZ2QBJxwXqA0t2ZU2XBefELYBQfhu4LvIBu8mq4RMVMKpSFbtQIWD7bHixspQHDZaHnAui4Yy9vGu9wfxqHzP66vnYdsgin0YjIkx-VunLkpqLhnLtx8lSy11IxcDHwMY6k36x-5OC3k'
+  }
+];
+
+export const DESTINATIONS = [
+  { value: 'europe', label: 'Europe (France, Italy, Spain)' },
+  { value: 'asia', label: 'Asia (Japan, Thailand, Bali)' },
+  { value: 'caribbean', label: 'Caribbean & Mexico' },
+  { value: 'safari', label: 'African Safari' },
+  { value: 'custom', label: 'Other / Multi-City' }
 ];

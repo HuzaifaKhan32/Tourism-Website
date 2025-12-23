@@ -7,6 +7,9 @@ import StatsOverlay from './components/StatsOverlay';
 import PopularPackages from './components/PopularPackages';
 import Services from './components/Services';
 import VisaProcess from './components/VisaProcess';
+import TeamVideos from './components/TeamVideos';
+import BookingSection from './components/BookingSection';
+import Footer from './components/Footer';
 
 const App: React.FC = () => {
   return (
@@ -34,10 +37,14 @@ const App: React.FC = () => {
         {/* Visa Process Section */}
         <VisaProcess />
 
-        {/* Footer Filler for professional finish */}
-        <footer className="w-full bg-background-dark py-12 px-6 border-t border-white/5 text-center text-white/30 text-xs font-bold tracking-widest uppercase z-20">
-          © {new Date().getFullYear()} UNF Global Tourism. All Rights Reserved.
-        </footer>
+        {/* Expert Advice Section */}
+        <TeamVideos />
+
+        {/* Booking Section (Contact) */}
+        <BookingSection />
+
+        {/* New Premium Footer Section */}
+        <Footer />
       </div>
     </div>
   );

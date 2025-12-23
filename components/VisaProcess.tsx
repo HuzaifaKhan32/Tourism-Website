@@ -56,9 +56,10 @@ const VisaProcess: React.FC = () => {
                 >
                   {/* Step Card (Alternating) */}
                   <div className={`w-full lg:w-[calc(50%-80px)] ${isEven ? 'lg:order-3' : 'lg:order-1'}`}>
-                    <div className={`bg-white dark:bg-slate-800 p-8 sm:p-10 rounded-3xl shadow-xl border-t-8 border-brand-blue hover:shadow-2xl transition-all duration-500 ease-out relative overflow-hidden`}>
+                    {/* FIXED: Removed overflow-hidden to allow icon to pop out */}
+                    <div className={`bg-white dark:bg-slate-800 p-8 sm:p-10 rounded-3xl shadow-xl border-t-8 border-brand-blue hover:shadow-2xl transition-all duration-500 ease-out relative`}>
                       {/* Icon Badge */}
-                      <div className={`absolute -top-6 ${isEven ? 'right-8' : 'left-8'} lg:${isEven ? 'left-auto right-8' : 'right-auto left-8'} w-14 h-14 bg-brand-blue/10 rounded-2xl flex items-center justify-center text-brand-blue shadow-sm backdrop-blur-sm border border-brand-blue/10 transition-transform duration-500 group-hover:scale-110 group-hover:bg-brand-blue group-hover:text-white`}>
+                      <div className={`absolute -top-6 ${isEven ? 'right-8' : 'left-8'} lg:${isEven ? 'left-auto right-8' : 'right-auto left-8'} w-14 h-14 bg-brand-blue/10 rounded-2xl flex items-center justify-center text-brand-blue shadow-sm backdrop-blur-sm border border-brand-blue/10 transition-transform duration-500 group-hover:scale-110 group-hover:bg-brand-blue group-hover:text-white z-20`}>
                         <span className="material-symbols-outlined text-3xl">{step.icon}</span>
                       </div>
 
