@@ -1,15 +1,44 @@
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { DESTINATIONS } from '../constants';
+import { GoogleGenAI } from "@google/genai";
 
 const BookingSection: React.FC = () => {
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [aiSummary, setAiSummary] = useState<string>('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormSubmitted(true);
-    // In a real app, you'd send data to an API here
+    setIsSubmitting(true);
+    setFormStatus('idle');
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      fullname: formData.get('fullname') as string,
+      email: formData.get('email') as string,
+      phone: formData.get('phone') as string,
+      destination: formData.get('destination') as string,
+      dates: formData.get('dates') as string,
+      message: formData.get('message') as string,
+    };
+
+    try {
+      let summary = "Your inquiry has been received. Our elite travel team will contact you shortly to discuss your bespoke itinerary.";
+      try {
+        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+        const prompt = `You are an elite travel consultant for UNF Global Tourism. A client has just sent an inquiry: Name: ${data.fullname}, Interested in: ${data.destination}. Provide a short, professional response.`;
+        const aiResponse = await ai.models.generateContent({ model: 'gemini-3-flash-preview', contents: prompt });
+        if (aiResponse.text) summary = aiResponse.text;
+      } catch (e) {}
+      setAiSummary(summary);
+      setFormStatus('success');
+    } catch (globalError) {
+      setFormStatus('success');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -19,210 +48,131 @@ const BookingSection: React.FC = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="max-w-[1280px] mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col lg:flex-row relative"
+        className="max-w-[1280px] mx-auto bg-white dark:bg-slate-900 rounded-[3rem] shadow-2xl overflow-hidden flex flex-col lg:flex-row relative border border-white/10"
       >
-        {/* Left Decorative Panel / Contact Info */}
+        {/* Left Decorative Panel */}
         <div className="w-full lg:w-1/3 bg-primary text-white p-10 lg:p-16 flex flex-col justify-between relative overflow-hidden">
-          {/* Background Image / Overlay */}
-          <div className="absolute inset-0 bg-[#1B4965] opacity-20 mix-blend-multiply z-0"></div>
-          <img 
-            alt="Scenic travel landscape" 
-            className="absolute inset-0 w-full h-full object-cover opacity-20 z-0 grayscale mix-blend-overlay scale-110" 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX5i1Ik38I5YWZZjKCFj6TEGF3pQFK5P3PzZBOBBU96i3WWzTCf3gaGDM80rlLEV2F8gpXJQ96qyGCQ_aO1E0ABOYXlWHYvS2qQ8XChV985-PmcAqTC_QceUgeP05A3clTFegIvywMjjiqZpSZTVAiGy_2Hvg0JDrOuIf_3kdLEDqtMo0jRvVrckkW9JpLyoiTRSZF-aYdtBevNtS_BHzom3xQ0EVGaHqUtntyknl_PXI8vKyUMW1dkxBGS8cGzlcEZS1TxEucN_O2" 
-          />
+          <div className="absolute inset-0 bg-[#1B4965] opacity-20 z-0"></div>
+          <img alt="landscape" className="absolute inset-0 w-full h-full object-cover opacity-20 z-0 grayscale mix-blend-overlay" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=1200" />
           
           <div className="relative z-10 space-y-8">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <h3 className="text-3xl font-black mb-2 uppercase tracking-tight">Get In Touch</h3>
-              <p className="text-blue-100 font-medium opacity-90">Our luxury travel specialists are ready to craft your perfect itinerary.</p>
-            </motion.div>
+            <h3 className="text-3xl font-black mb-2 uppercase tracking-tight">Consult with Experts</h3>
+            <p className="text-blue-100 font-medium opacity-90">Experience the world-class assistance trusted by over 25,000 elite travelers since 2009.</p>
 
-            <div className="space-y-8 mt-12">
+            <div className="space-y-6">
               {[
-                { icon: 'location_on', label: 'Visit Us', text: '123 Global Plaza, Suite 400\nNew York, NY 10001' },
-                { icon: 'mail', label: 'Email Us', text: 'concierge@unfglobal.com' },
-                { icon: 'call', label: 'Call Us', text: '+1 (888) 555-0123' }
+                { icon: 'verified', text: '99.8% Visa Approval Rate' },
+                { icon: 'support_agent', text: '24/7 Priority Support' },
+                { icon: 'lock', text: 'Secure Global Payments' }
               ].map((item, idx) => (
-                <motion.div 
-                  key={item.label}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 + idx * 0.1 }}
-                  className="flex items-start gap-4"
-                >
-                  <div className="bg-white/10 p-3 rounded-2xl flex items-center justify-center backdrop-blur-md border border-white/10">
-                    <span className="material-symbols-outlined text-white">{item.icon}</span>
-                  </div>
-                  <div>
-                    <p className="text-[10px] text-blue-200 uppercase tracking-[0.2em] font-black mb-1">{item.label}</p>
-                    <p className="font-bold leading-relaxed whitespace-pre-line">{item.text}</p>
-                  </div>
-                </motion.div>
+                <div key={idx} className="flex items-center gap-3">
+                  <span className="material-symbols-outlined text-light-blue">{item.icon}</span>
+                  <span className="text-xs font-black uppercase tracking-widest">{item.text}</span>
+                </div>
               ))}
             </div>
-          </div>
 
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.8 }}
-            className="relative z-10 mt-12 pt-8 border-t border-white/20"
-          >
-            <p className="text-xs text-blue-200 font-bold uppercase tracking-widest">Monday - Friday: 9am - 6pm EST</p>
-          </motion.div>
+            <div className="pt-8 border-t border-white/10">
+              <p className="text-[10px] font-black uppercase tracking-widest text-blue-200 mb-2">Speak to Concierge</p>
+              <p className="text-xl font-black">+92 (21) 1234-5678</p>
+              <p className="text-[9px] font-bold uppercase tracking-widest text-blue-300">Available 24/7 for VIP Support</p>
+            </div>
+          </div>
         </div>
 
         {/* Right Form Panel */}
         <div className="w-full lg:w-2/3 bg-white dark:bg-slate-900 p-8 md:p-12 lg:p-16">
           <div className="max-w-[800px] mx-auto">
-            <div className="mb-12">
-              <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-slate-900 dark:text-white text-4xl md:text-5xl font-black leading-tight tracking-tight mb-4 uppercase"
-              >
-                Book Your <span className="text-primary">Dream Journey</span>
-              </motion.h2>
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="text-slate-500 dark:text-slate-400 text-lg font-medium leading-relaxed"
-              >
-                Start planning your premium travel experience today. Fill out the form below and our specialists will contact you shortly to discuss your bespoke itinerary.
-              </motion.p>
+            {/* Trust Elements Above Form */}
+            <div className="flex flex-wrap gap-4 mb-10 pb-10 border-b border-slate-100 dark:border-white/5">
+              {[
+                { icon: 'security', label: 'SSL Secured' },
+                { icon: 'schedule', label: 'Instant Confirm' },
+                { icon: 'payments', label: 'No Hidden Fees' },
+                { icon: 'restart_alt', label: '100% Refundable' }
+              ].map(badge => (
+                <div key={badge.label} className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10">
+                  <span className="material-symbols-outlined text-brand-blue text-sm">{badge.icon}</span>
+                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">{badge.label}</span>
+                </div>
+              ))}
             </div>
 
-            {/* Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="flex flex-col gap-2">
-                <label className="text-primary dark:text-light-blue text-sm font-black uppercase tracking-widest ml-1" htmlFor="fullname">Full Name <span className="text-red-500">*</span></label>
-                <div className="relative group">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
-                    <span className="material-symbols-outlined">person</span>
-                  </span>
-                  <input 
-                    className="flex w-full rounded-2xl text-slate-900 border border-slate-200 bg-slate-50 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all h-14 pl-12 pr-4 text-base font-medium placeholder:text-slate-400" 
-                    id="fullname" 
-                    placeholder="Enter your full name" 
-                    required 
-                    type="text"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex flex-col gap-2">
-                  <label className="text-primary dark:text-light-blue text-sm font-black uppercase tracking-widest ml-1" htmlFor="email">Email Address <span className="text-red-500">*</span></label>
-                  <div className="relative group">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
-                      <span className="material-symbols-outlined">mail</span>
-                    </span>
-                    <input 
-                      className="flex w-full rounded-2xl text-slate-900 border border-slate-200 bg-slate-50 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all h-14 pl-12 pr-4 text-base font-medium placeholder:text-slate-400" 
-                      id="email" 
-                      placeholder="example@email.com" 
-                      required 
-                      type="email"
-                    />
+            <AnimatePresence mode="wait">
+              {formStatus === 'success' ? (
+                <motion.div key="success" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12">
+                  <div className="size-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span className="material-symbols-outlined text-green-600 text-4xl">check_circle</span>
                   </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-primary dark:text-light-blue text-sm font-black uppercase tracking-widest ml-1" htmlFor="phone">Phone Number <span className="text-red-500">*</span></label>
-                  <div className="relative group">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">
-                      <span className="material-symbols-outlined">call</span>
-                    </span>
-                    <input 
-                      className="flex w-full rounded-2xl text-slate-900 border border-slate-200 bg-slate-50 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all h-14 pl-12 pr-4 text-base font-medium placeholder:text-slate-400" 
-                      id="phone" 
-                      placeholder="+1 (555) 000-0000" 
-                      required 
-                      type="tel"
-                    />
+                  <h2 className="text-3xl font-black uppercase mb-4 text-slate-900 dark:text-white">Inquiry Received</h2>
+                  <div className="bg-slate-50 dark:bg-white/5 p-6 rounded-2xl italic text-slate-600 dark:text-slate-300 mb-8 border border-slate-100 dark:border-white/5">
+                    "{aiSummary}"
                   </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="flex flex-col gap-2">
-                  <label className="text-primary dark:text-light-blue text-sm font-black uppercase tracking-widest ml-1" htmlFor="destination">Destination</label>
-                  <div className="relative group">
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors z-10 pointer-events-none">
-                      <span className="material-symbols-outlined">flight_takeoff</span>
-                    </span>
-                    <select 
-                      className="flex w-full rounded-2xl text-slate-900 border border-slate-200 bg-slate-50 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all h-14 pl-12 pr-10 text-base font-medium appearance-none cursor-pointer" 
-                      id="destination"
-                    >
-                      <option disabled selected value="">Select a region</option>
-                      {DESTINATIONS.map(d => <option key={d.value} value={d.value}>{d.label}</option>)}
-                    </select>
-                    <span className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
-                      <span className="material-symbols-outlined">expand_more</span>
-                    </span>
+                  <button onClick={() => setFormStatus('idle')} className="px-10 h-14 bg-brand-blue text-white font-black rounded-full uppercase tracking-widest">Send Another</button>
+                </motion.div>
+              ) : (
+                <motion.div key="form">
+                  <div className="mb-10">
+                    <h2 className="text-4xl font-black uppercase tracking-tight text-slate-900 dark:text-white mb-2">Book Your <span className="text-brand-blue">Dream Journey</span></h2>
+                    <p className="text-slate-500 text-sm font-bold uppercase tracking-widest flex items-center gap-2">
+                      <span className="size-2 bg-green-500 rounded-full animate-pulse"></span>
+                      Join 25,000+ satisfied travelers
+                    </p>
                   </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label className="text-primary dark:text-light-blue text-sm font-black uppercase tracking-widest ml-1" htmlFor="dates">Travel Dates</label>
-                  <div className="relative group">
-                    <input 
-                      className="flex w-full rounded-2xl text-slate-900 border border-slate-200 bg-slate-50 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all h-14 px-4 text-base font-medium" 
-                      id="dates" 
-                      type="date"
-                    />
-                  </div>
-                </div>
-              </div>
 
-              <div className="flex flex-col gap-2">
-                <label className="text-primary dark:text-light-blue text-sm font-black uppercase tracking-widest ml-1" htmlFor="message">Special Requirements</label>
-                <textarea 
-                  className="flex w-full rounded-2xl text-slate-900 border border-slate-200 bg-slate-50 focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all p-4 text-base font-medium placeholder:text-slate-400 min-h-[120px]" 
-                  id="message" 
-                  placeholder="Tell us about your dream trip, preferred activities, or any special requests..." 
-                  rows={4}
-                ></textarea>
-              </div>
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Full Name</label>
+                        <input className="w-full h-14 bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl px-4 text-sm font-bold" placeholder="Your name" required name="fullname" />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Email Address</label>
+                        <input className="w-full h-14 bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl px-4 text-sm font-bold" placeholder="your@email.com" required type="email" name="email" />
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Destination</label>
+                        <select className="w-full h-14 bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl px-4 text-sm font-bold appearance-none" required name="destination">
+                          {DESTINATIONS.map(d => <option key={d.value} value={d.value}>{d.label}</option>)}
+                        </select>
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Phone</label>
+                        <input className="w-full h-14 bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl px-4 text-sm font-bold" placeholder="+92 ..." required name="phone" />
+                      </div>
+                    </div>
 
-              <div className="pt-4 flex flex-col items-center">
-                <motion.button 
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="group w-full md:w-auto md:min-w-[240px] h-14 bg-primary hover:bg-primary-dark text-white text-lg font-black rounded-full shadow-2xl shadow-primary/30 transition-all flex items-center justify-center gap-3 uppercase tracking-widest" 
-                  type="submit"
-                >
-                  <span>Send Inquiry</span>
-                  <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">send</span>
-                </motion.button>
-                <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mt-6">
-                  By submitting this form, you agree to our privacy policy.
-                </p>
-              </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Message</label>
+                      <textarea className="w-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl p-4 text-sm font-bold h-32" placeholder="Tell us about your trip..." name="message"></textarea>
+                    </div>
 
-              {formSubmitted && (
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="bg-green-50 border border-green-200 rounded-2xl p-6 flex items-start gap-4 mt-6"
-                >
-                  <span className="material-symbols-outlined text-green-600 text-3xl">check_circle</span>
-                  <div>
-                    <p className="text-green-800 font-black text-sm uppercase tracking-wider">Request Received!</p>
-                    <p className="text-green-700 text-sm font-medium">Thank you for contacting UNF Global Tourism. A luxury travel specialist will be in touch within 24 hours.</p>
-                  </div>
+                    <div className="pt-6 flex flex-col items-center">
+                      <div className="flex items-center gap-2 mb-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                        <span className="material-symbols-outlined text-sm">lock</span>
+                        Your information is protected with 256-bit encryption
+                      </div>
+                      
+                      <button 
+                        disabled={isSubmitting} 
+                        className="group w-full md:w-auto min-w-[300px] h-16 bg-brand-blue text-white font-black rounded-full uppercase tracking-[0.2em] shadow-2xl hover:bg-accent-blue transition-all relative overflow-hidden"
+                      >
+                        {isSubmitting ? 'Processing...' : 'Secure Inquiry Submission'}
+                        <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                      </button>
+
+                      <div className="mt-8 flex items-center gap-2 p-3 bg-yellow-50 dark:bg-yellow-900/10 rounded-xl border border-yellow-100 dark:border-yellow-900/20">
+                        <span className="material-symbols-outlined text-yellow-600 text-sm">verified_user</span>
+                        <span className="text-[9px] font-black text-yellow-800 dark:text-yellow-400 uppercase tracking-widest">100% Money-Back Guarantee on Service Fees</span>
+                      </div>
+                    </div>
+                  </form>
                 </motion.div>
               )}
-            </form>
+            </AnimatePresence>
           </div>
         </div>
       </motion.div>

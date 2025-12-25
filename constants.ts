@@ -15,11 +15,12 @@ export const CAROUSEL_IMAGES = [
 ];
 
 export const NAV_LINKS = [
+  { name: 'About Us', href: '#about-us' },
   { name: 'Destinations', href: '#popular-packages' },
   { name: 'Services', href: '#services' },
   { name: 'Visa Process', href: '#visa-process' },
   { name: 'Expert Advice', href: '#team-videos' },
-  { name: 'About Us', href: '#footer' }
+  { name: 'Locations', href: '#our-presence' }
 ];
 
 export const STATS = [
@@ -111,42 +112,42 @@ export const SERVICES = [
     title: 'Visa Assistance',
     icon: 'flight_takeoff',
     description: 'Streamlined processing for all your travel documents. We navigate the complexities of embassy requirements for you.',
-    bgImage: 'https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=800'
+    bgImage: 'https://tse4.mm.bing.net/th/id/OIP.GISLPh8eMTn83uSG48ckEAHaE8?cb=ucfimg2&ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3'
   },
   {
     id: 'tour',
     title: 'Tour Packages',
     icon: 'backpack',
     description: 'Curated luxury itineraries for unforgettable experiences. From hidden gems to iconic landmarks, we plan it all.',
-    bgImage: 'https://images.unsplash.com/photo-1436491865332-7a61a109c0f3?auto=format&fit=crop&q=80&w=800'
+    bgImage: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&q=80&w=1200'
   },
   {
     id: 'hotel',
     title: 'Hotel Booking',
     icon: 'hotel',
     description: "Exclusive stays at the world's finest properties. We secure the best rates and premium amenities for your comfort.",
-    bgImage: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=800'
+    bgImage: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&q=80&w=1200'
   },
   {
     id: 'flight',
     title: 'Flight Reservations',
     icon: 'airplane_ticket',
     description: 'Premium cabin booking and itinerary management. Travel with ease knowing your connections are secure.',
-    bgImage: 'https://images.unsplash.com/photo-1464037862896-6a75d2a196f5?auto=format&fit=crop&q=80&w=800'
+    bgImage: 'https://th.bing.com/th/id/OIP.Iuyu1rL7FIu-eFRcULIX9wHaE8?w=254&h=180&c=7&r=0&o=7&cb=ucfimg2&dpr=1.5&pid=1.7&rm=3&ucfimg=1'
   },
   {
     id: 'documentation',
     title: 'Documentation',
     icon: 'description',
     description: 'Comprehensive handling of all legal requirements. From translations to notarizations, we handle the paperwork.',
-    bgImage: 'https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=800'
+    bgImage: 'https://img.freepik.com/free-photo/side-view-lawyer-working-with-documents_23-2151202420.jpg'
   },
   {
     id: 'support',
     title: '24/7 Support',
     icon: 'support_agent',
     description: 'Always-on assistance wherever you are in the world. Our global team is just a call or message away.',
-    bgImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800'
+    bgImage: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1200'
   }
 ];
 

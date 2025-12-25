@@ -4,48 +4,69 @@ import Header from './components/Header';
 import BackgroundCarousel from './components/BackgroundCarousel';
 import HeroContent from './components/HeroContent';
 import StatsOverlay from './components/StatsOverlay';
+import FeaturedIn from './components/FeaturedIn';
+import AboutUs from './components/AboutUs';
 import PopularPackages from './components/PopularPackages';
 import Services from './components/Services';
 import VisaProcess from './components/VisaProcess';
+import Testimonials from './components/Testimonials';
 import TeamVideos from './components/TeamVideos';
+import FAQ from './components/FAQ';
 import BookingSection from './components/BookingSection';
+import OurPresence from './components/OurPresence';
 import Footer from './components/Footer';
+import FloatingTrust from './components/FloatingTrust';
+import ChatWidget from './components/ChatWidget';
 
 const App: React.FC = () => {
   return (
     <div className="relative w-full min-h-screen">
-      {/* Background is fixed and covers the entire viewport */}
       <BackgroundCarousel />
 
-      {/* Main Content Scroll Container */}
       <div className="relative z-10 flex flex-col">
-        {/* Full Viewport Hero Section */}
+        {/* 1. Hero Section */}
         <div className="min-h-screen flex flex-col">
           <Header />
           <HeroContent />
         </div>
 
-        {/* Stats Section */}
+        {/* Supporting Trust Sections */}
         <StatsOverlay />
+        <FeaturedIn />
 
-        {/* Popular Packages Section */}
+        {/* 2. About Us */}
+        <AboutUs />
+
+        {/* 3. Packages */}
         <PopularPackages />
 
-        {/* Services Section */}
+        {/* 4. Services */}
         <Services />
 
-        {/* Visa Process Section */}
+        {/* 5. Visa Procedure */}
         <VisaProcess />
 
-        {/* Expert Advice Section */}
+        {/* 6. Testimonials */}
+        <Testimonials />
+
+        {/* 7. Experts Videos */}
         <TeamVideos />
 
-        {/* Booking Section (Contact) */}
+        {/* FAQ (Placed for conversion before booking) */}
+        <FAQ />
+
+        {/* 8. Contact Form (Booking Section) */}
         <BookingSection />
 
-        {/* New Premium Footer Section */}
+        {/* 9. Our Presence (Office & Map) */}
+        <OurPresence />
+
         <Footer />
       </div>
+
+      {/* Floating Elements */}
+      <FloatingTrust />
+      <ChatWidget />
     </div>
   );
 };
