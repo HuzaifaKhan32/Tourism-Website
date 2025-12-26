@@ -87,7 +87,7 @@ const PopularPackages: React.FC = () => {
                 <option value="high-to-low">Price: High to Low</option>
               </select>
               <span className="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400 text-xl">
-                unfold_more
+                expand_more
               </span>
             </div>
           </div>

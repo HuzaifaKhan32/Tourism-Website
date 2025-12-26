@@ -72,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, onAdminClick }) => {
           {NAV_LINKS.map((link) => (
             <a
               key={link.name}
-              className="text-slate-600 dark:text-white/70 text-[11px] lg:text-[13px] font-black uppercase tracking-widest hover:text-brand-blue dark:hover:text-white transition-colors duration-200"
+              className="text-slate-600 dark:text-white/70 text-[13px] lg:text-[15px] font-black uppercase tracking-widest hover:text-brand-blue dark:hover:text-white transition-colors duration-200"
               href={link.href}
             >
               {link.name}
@@ -99,13 +99,13 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, onAdminClick }) => {
             Get in Touch
           </button>
 
-          {/* Hamburger Menu Toggle */}
+          {/* Styled Rounded Hamburger Menu Toggle */}
           <button 
-            className="md:hidden text-slate-900 dark:text-white size-10 flex items-center justify-center z-[70]" 
+            className="md:hidden flex items-center justify-center size-10 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white transition-all hover:bg-slate-100 dark:hover:bg-white/10 active:scale-90 z-[70] shadow-sm" 
             onClick={toggleMenu}
             aria-label="Toggle Menu"
           >
-            <span className="material-symbols-outlined text-3xl font-bold transition-all duration-300">
+            <span className="material-symbols-outlined text-2xl font-medium transition-all duration-300">
               {isMenuOpen ? 'close' : 'menu'}
             </span>
           </button>
@@ -118,7 +118,7 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, onAdminClick }) => {
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
-              className="absolute top-[calc(100%+10px)] right-6 w-[280px] z-[65] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-100 dark:border-white/10 overflow-hidden"
+              className="absolute top-[calc(100%+12px)] right-6 w-[280px] z-[65] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-100 dark:border-white/10 overflow-hidden"
             >
               <nav className="flex flex-col p-6 gap-4">
                 {NAV_LINKS.map((link, idx) => (

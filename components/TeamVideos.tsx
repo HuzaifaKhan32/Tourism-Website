@@ -75,9 +75,9 @@ const TeamVideos: React.FC<TeamVideosProps> = ({ onViewAll }) => {
         >
           <button 
             onClick={onViewAll}
-            className="group flex items-center gap-2 text-brand-blue dark:text-white font-black text-[12px] uppercase tracking-[0.3em] hover:opacity-70 transition-all border-b-2 border-brand-blue/30 dark:border-white/30 pb-1"
+            className="group flex items-center gap-2 text-brand-blue dark:text-white font-black text-[12px] uppercase tracking-[0.3em] hover:opacity-70 transition-all border-b-2 border-brand-blue dark:border-white pb-1"
           >
-            <span>View All Videos</span>
+            <span>Archive View All Videos</span>
             <span className="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-1">arrow_forward</span>
           </button>
         </motion.div>
