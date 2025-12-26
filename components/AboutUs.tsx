@@ -3,9 +3,22 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const AboutUs: React.FC = () => {
+  const logoUrl = "https://i.ibb.co/tPFyCrMZ/logo.png";
+
   return (
     <section id="about-us" className="relative w-full py-24 lg:py-32 z-20 bg-white dark:bg-background-dark overflow-hidden transition-colors duration-500">
-      <div className="max-w-[1280px] mx-auto px-6">
+      {/* Niche Branding: Huge Faded Background Logo */}
+      <motion.div 
+        initial={{ opacity: 0, rotate: -10 }}
+        whileInView={{ opacity: 0.03 }}
+        viewport={{ once: true }}
+        transition={{ duration: 2 }}
+        className="absolute -right-32 top-1/2 -translate-y-1/2 pointer-events-none select-none z-0"
+      >
+        <img src={logoUrl} alt="" className="w-[800px] h-auto grayscale" />
+      </motion.div>
+
+      <div className="max-w-[1280px] mx-auto px-6 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

@@ -3,7 +3,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const OurPresence: React.FC = () => {
-  const googleMapUrl = "https://www.google.com/maps/search/Executive+Tower+Karachi";
+  const googleMapUrl = "https://maps.app.goo.gl/gE9Gi11uqWNKAZiS6";
 
   return (
     <section id="our-presence" className="relative w-full py-24 z-20 bg-gray-50 dark:bg-slate-900/50 transition-colors duration-500">
@@ -33,8 +33,9 @@ const OurPresence: React.FC = () => {
                 <div>
                   <h4 className="text-slate-900 dark:text-white font-black text-sm uppercase mb-1 tracking-wider">Head Office</h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
-                    Suite 405, Executive Tower, Marine Drive,<br />
-                    Karachi, Pakistan
+                    Al qusais 5 muhaisnah 4,<br />
+                    Building name al mezan tower.<br />
+                    Dubai, UAE
                   </p>
                 </div>
               </div>
@@ -45,21 +46,21 @@ const OurPresence: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-slate-900 dark:text-white font-black text-sm uppercase mb-1 tracking-wider">Direct Line</h4>
-                  <a href="tel:+922112345678" className="text-brand-blue dark:text-light-blue text-lg font-black hover:underline tracking-tight">
-                    +92 (21) 1234-5678
+                  <a href="tel:+971567867420" className="text-brand-blue dark:text-light-blue text-lg font-black hover:underline tracking-tight">
+                    +971 56 786 7420
                   </a>
                 </div>
               </div>
 
               <div className="flex items-start gap-5">
                 <div className="size-12 rounded-2xl bg-brand-blue/10 flex items-center justify-center text-brand-blue shrink-0">
-                  <span className="material-symbols-outlined">schedule</span>
+                  <span className="material-symbols-outlined">chat</span>
                 </div>
                 <div>
-                  <h4 className="text-slate-900 dark:text-white font-black text-sm uppercase mb-1 tracking-wider">Office Hours</h4>
-                  <p className="text-slate-600 dark:text-slate-400 text-sm font-medium">
-                    Monday - Saturday: 9:00 AM - 6:00 PM
-                  </p>
+                  <h4 className="text-slate-900 dark:text-white font-black text-sm uppercase mb-1 tracking-wider">WhatsApp Concierge</h4>
+                  <a href="https://wa.me/971509550820" target="_blank" rel="noopener noreferrer" className="text-brand-blue dark:text-light-blue text-lg font-black hover:underline tracking-tight">
+                    0509550820
+                  </a>
                 </div>
               </div>
             </div>
@@ -84,11 +85,10 @@ const OurPresence: React.FC = () => {
           >
             <div className="relative aspect-video lg:aspect-square rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white dark:border-slate-800 group">
               <img 
-                src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&q=80&w=1200" 
-                alt="Karachi City Skyline" 
+                src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=1200" 
+                alt="Dubai City Skyline" 
                 className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 transition-all duration-700"
               />
-              {/* Stylized Overlay Map Marker */}
               <div className="absolute inset-0 flex items-center justify-center bg-brand-blue/10 group-hover:bg-transparent transition-colors duration-500">
                 <a 
                   href={googleMapUrl} 
@@ -109,10 +109,6 @@ const OurPresence: React.FC = () => {
                 </a>
               </div>
             </div>
-            
-            {/* Background Decor */}
-            <div className="absolute -top-10 -right-10 size-40 bg-brand-blue/10 rounded-full blur-3xl -z-10" />
-            <div className="absolute -bottom-10 -left-10 size-40 bg-accent-blue/10 rounded-full blur-3xl -z-10" />
           </motion.div>
 
         </div>

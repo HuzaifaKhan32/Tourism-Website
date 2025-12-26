@@ -2,7 +2,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const HeroContent: React.FC = () => {
+interface HeroContentProps {
+  isInitialVisit?: boolean;
+}
+
+const HeroContent: React.FC<HeroContentProps> = ({ isInitialVisit }) => {
   return (
     <main className="relative flex-grow flex flex-col justify-center items-center text-center px-6 md:px-12 lg:px-24 max-w-[1400px] mx-auto z-20 pt-12 sm:pt-20 pb-20 sm:pb-32">
       <motion.div 
@@ -32,10 +36,20 @@ const HeroContent: React.FC = () => {
           <motion.button 
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.98 }}
-            className="group w-full sm:w-auto min-w-[200px] sm:min-w-[240px] h-14 sm:h-16 px-8 sm:px-10 bg-brand-blue hover:bg-white hover:text-brand-blue text-white text-sm sm:text-base font-bold rounded-full transition-all duration-300 shadow-2xl shadow-blue-900/40 flex items-center justify-center gap-3"
+            animate={!isInitialVisit ? { 
+              scale: [1, 1.05, 1],
+              transition: { duration: 1.5, repeat: 0, delay: 1 } 
+            } : {}}
+            className="group w-full sm:w-auto min-w-[200px] sm:min-w-[240px] h-14 sm:h-16 px-8 sm:px-10 bg-brand-blue hover:bg-white hover:text-brand-blue text-white text-sm sm:text-base font-bold rounded-full transition-all duration-300 shadow-2xl shadow-blue-900/40 flex items-center justify-center gap-3 relative overflow-hidden"
           >
-            <span>Explore Destinations</span>
-            <span className="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">
+            {/* Inner pulse ring */}
+            <motion.div 
+              animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
+              transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+              className="absolute inset-0 bg-white/20 rounded-full"
+            />
+            <span className="relative z-10">Explore Destinations</span>
+            <span className="relative z-10 material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">
               arrow_forward
             </span>
           </motion.button>

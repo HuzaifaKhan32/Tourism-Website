@@ -74,7 +74,7 @@ const BookingSection: React.FC = () => {
 
             <div className="pt-8 border-t border-white/10">
               <p className="text-[10px] font-black uppercase tracking-widest text-blue-200 mb-2">Speak to Concierge</p>
-              <p className="text-xl font-black">+92 (21) 1234-5678</p>
+              <p className="text-xl font-black">+971 56 786 7420</p>
               <p className="text-[9px] font-bold uppercase tracking-widest text-blue-300">Available 24/7 for VIP Support</p>
             </div>
           </div>
@@ -83,21 +83,6 @@ const BookingSection: React.FC = () => {
         {/* Right Form Panel */}
         <div className="w-full lg:w-2/3 bg-white dark:bg-slate-900 p-8 md:p-12 lg:p-16">
           <div className="max-w-[800px] mx-auto">
-            {/* Trust Elements Above Form */}
-            <div className="flex flex-wrap gap-4 mb-10 pb-10 border-b border-slate-100 dark:border-white/5">
-              {[
-                { icon: 'security', label: 'SSL Secured' },
-                { icon: 'schedule', label: 'Instant Confirm' },
-                { icon: 'payments', label: 'No Hidden Fees' },
-                { icon: 'restart_alt', label: '100% Refundable' }
-              ].map(badge => (
-                <div key={badge.label} className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10">
-                  <span className="material-symbols-outlined text-brand-blue text-sm">{badge.icon}</span>
-                  <span className="text-[9px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">{badge.label}</span>
-                </div>
-              ))}
-            </div>
-
             <AnimatePresence mode="wait">
               {formStatus === 'success' ? (
                 <motion.div key="success" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12">
@@ -141,7 +126,7 @@ const BookingSection: React.FC = () => {
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Phone</label>
-                        <input className="w-full h-14 bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl px-4 text-sm font-bold" placeholder="+92 ..." required name="phone" />
+                        <input className="w-full h-14 bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl px-4 text-sm font-bold" placeholder="+971 ..." required name="phone" />
                       </div>
                     </div>
 
@@ -151,11 +136,6 @@ const BookingSection: React.FC = () => {
                     </div>
 
                     <div className="pt-6 flex flex-col items-center">
-                      <div className="flex items-center gap-2 mb-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">
-                        <span className="material-symbols-outlined text-sm">lock</span>
-                        Your information is protected with 256-bit encryption
-                      </div>
-                      
                       <button 
                         disabled={isSubmitting} 
                         className="group w-full md:w-auto min-w-[300px] h-16 bg-brand-blue text-white font-black rounded-full uppercase tracking-[0.2em] shadow-2xl hover:bg-accent-blue transition-all relative overflow-hidden"
@@ -163,11 +143,6 @@ const BookingSection: React.FC = () => {
                         {isSubmitting ? 'Processing...' : 'Secure Inquiry Submission'}
                         <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
                       </button>
-
-                      <div className="mt-8 flex items-center gap-2 p-3 bg-yellow-50 dark:bg-yellow-900/10 rounded-xl border border-yellow-100 dark:border-yellow-900/20">
-                        <span className="material-symbols-outlined text-yellow-600 text-sm">verified_user</span>
-                        <span className="text-[9px] font-black text-yellow-800 dark:text-yellow-400 uppercase tracking-widest">100% Money-Back Guarantee on Service Fees</span>
-                      </div>
                     </div>
                   </form>
                 </motion.div>

@@ -16,11 +16,9 @@ export const CAROUSEL_IMAGES = [
 
 export const NAV_LINKS = [
   { name: 'About Us', href: '#about-us' },
-  { name: 'Destinations', href: '#popular-packages' },
   { name: 'Services', href: '#services' },
   { name: 'Visa Process', href: '#visa-process' },
-  { name: 'Expert Advice', href: '#team-videos' },
-  { name: 'Locations', href: '#our-presence' }
+  { name: 'Expert Advice', href: '#team-videos' }
 ];
 
 export const STATS = [
@@ -133,7 +131,7 @@ export const SERVICES = [
     title: 'Flight Reservations',
     icon: 'airplane_ticket',
     description: 'Premium cabin booking and itinerary management. Travel with ease knowing your connections are secure.',
-    bgImage: 'https://th.bing.com/th/id/OIP.Iuyu1rL7FIu-eFRcULIX9wHaE8?w=254&h=180&c=7&r=0&o=7&cb=ucfimg2&dpr=1.5&pid=1.7&rm=3&ucfimg=1'
+    bgImage: 'https://th.bing.net/th/id/OIP.Iuyu1rL7FIu-eFRcULIX9wHaE8?w=254&h=180&c=7&r=0&o=7&cb=ucfimg2&dpr=1.5&pid=1.7&rm=3&ucfimg=1'
   },
   {
     id: 'documentation',

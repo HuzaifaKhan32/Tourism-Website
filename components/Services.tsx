@@ -1,11 +1,11 @@
-
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { SERVICES } from '../constants';
 
 const Services: React.FC = () => {
   // Container variants for staggered entrance
-  const containerVariants = {
+  // Fix: Explicitly type as Variants to prevent index signature compatibility issues
+  const containerVariants: Variants = {
     initial: { opacity: 0 },
     animate: {
       opacity: 1,
@@ -17,14 +17,15 @@ const Services: React.FC = () => {
   };
 
   // Card variants for visibility and smooth motion
-  const cardVariants = {
+  // Fix: Explicitly type as Variants and use 'as const' for the ease array to ensure it's treated as a fixed-length tuple (BezierDefinition)
+  const cardVariants: Variants = {
     initial: { opacity: 0, y: 40 },
     animate: { 
       opacity: 1, 
       y: 0,
       transition: { 
         duration: 0.7, 
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.22, 1, 0.36, 1] as const,
       } 
     },
   };

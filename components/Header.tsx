@@ -3,11 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { NAV_LINKS } from '../constants';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  onNavClick?: () => void;
+  onAdminClick?: () => void;
+}
+
+const Header: React.FC<HeaderProps> = ({ onNavClick, onAdminClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const logoUrl = "https://i.ibb.co/tPFyCrMZ/logo.png"; 
 
-  // Initialize theme from localStorage or system preference
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -33,117 +38,121 @@ const Header: React.FC = () => {
     }
   };
 
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    if (href.startsWith('#')) {
-      e.preventDefault();
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }
-      setIsMenuOpen(false);
-    }
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
-    <header className="sticky top-0 w-full px-6 py-5 md:px-12 lg:px-20 flex items-center justify-between z-50 bg-background-light/80 dark:bg-background-dark/10 backdrop-blur-lg border-b border-black/5 dark:border-white/5 transition-all duration-300">
-      {/* Logo Section */}
-      <div className="flex items-center gap-3 text-slate-900 dark:text-white">
-        <div className="flex items-center justify-center size-10 rounded-full bg-brand-blue/10 dark:bg-white/10 backdrop-blur-sm border border-brand-blue/20 dark:border-white/20">
-          <span className="material-symbols-outlined text-brand-blue dark:text-white text-[24px]">public</span>
+    <>
+      <header className="sticky top-0 w-full px-6 py-4 md:px-12 lg:px-20 flex items-center justify-between z-[60] bg-white/90 dark:bg-background-dark/95 backdrop-blur-2xl border-b border-black/5 dark:border-white/5 transition-all duration-300">
+        {/* Executive Branding Pill */}
+        <motion.div 
+          whileHover={{ scale: 1.01 }}
+          className="flex items-center cursor-pointer group"
+          onClick={() => {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+            closeMenu();
+          }}
+        >
+          <div className="bg-white px-2 py-1.5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 flex items-center gap-3">
+            <img 
+              src={logoUrl} 
+              alt="UNF Logo" 
+              className="h-10 md:h-12 lg:h-14 w-auto object-contain transition-transform group-hover:scale-105"
+            />
+            <div className="h-6 w-[1px] bg-slate-200"></div>
+            <div className="flex flex-col pr-3">
+              <span className="text-[#1B4965] font-black text-xs md:text-sm tracking-tighter uppercase leading-none">UNF Global</span>
+              <span className="text-[#2B5F7F]/60 font-bold text-[8px] md:text-[9px] tracking-[0.3em] uppercase leading-none mt-1">Tourism</span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex items-center gap-6 lg:gap-10">
+          {NAV_LINKS.map((link) => (
+            <a
+              key={link.name}
+              className="text-slate-600 dark:text-white/70 text-[11px] lg:text-[13px] font-black uppercase tracking-widest hover:text-brand-blue dark:hover:text-white transition-colors duration-200"
+              href={link.href}
+            >
+              {link.name}
+            </a>
+          ))}
+        </nav>
+
+        {/* Actions */}
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={toggleTheme}
+            className="relative flex items-center justify-center size-9 md:size-11 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-white transition-all hover:bg-slate-100 dark:hover:bg-white/10"
+          >
+            <AnimatePresence mode="wait">
+              {isDarkMode ? (
+                <motion.span key="dark" initial={{ opacity: 0, rotate: -45 }} animate={{ opacity: 1, rotate: 0 }} className="material-symbols-outlined text-[18px] md:text-[22px]">light_mode</motion.span>
+              ) : (
+                <motion.span key="light" initial={{ opacity: 0, rotate: -45 }} animate={{ opacity: 1, rotate: 0 }} className="material-symbols-outlined text-[18px] md:text-[22px]">dark_mode</motion.span>
+              )}
+            </AnimatePresence>
+          </button>
+
+          <button className="hidden lg:flex items-center justify-center h-10 px-6 bg-brand-blue hover:bg-accent-blue text-white text-[10px] font-black uppercase tracking-widest rounded-full transition-all shadow-lg shadow-blue-900/10">
+            Get in Touch
+          </button>
+
+          {/* Hamburger Menu Toggle */}
+          <button 
+            className="md:hidden text-slate-900 dark:text-white size-10 flex items-center justify-center z-[70]" 
+            onClick={toggleMenu}
+            aria-label="Toggle Menu"
+          >
+            <span className="material-symbols-outlined text-3xl font-bold transition-all duration-300">
+              {isMenuOpen ? 'close' : 'menu'}
+            </span>
+          </button>
         </div>
-        <h2 className="text-slate-900 dark:text-white text-xl font-black tracking-tight drop-shadow-sm uppercase">UNF Global</h2>
-      </div>
 
-      {/* Desktop Navigation */}
-      <nav className="hidden md:flex items-center gap-8 lg:gap-12">
-        {NAV_LINKS.map((link) => (
-          <a
-            key={link.name}
-            className="text-slate-600 dark:text-white/80 text-xs font-black uppercase tracking-widest hover:text-brand-blue dark:hover:text-white transition-colors duration-200"
-            href={link.href}
-            onClick={(e) => handleNavClick(e, link.href)}
-          >
-            {link.name}
-          </a>
-        ))}
-      </nav>
-
-      {/* Header CTA & Mobile Menu Toggle */}
-      <div className="flex items-center gap-4">
-        {/* Theme Toggle Button */}
-        <button 
-          onClick={toggleTheme}
-          className="relative flex items-center justify-center size-10 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-white transition-all hover:scale-110 active:scale-95"
-          aria-label="Toggle Theme"
-        >
-          <AnimatePresence mode="wait">
-            {isDarkMode ? (
-              <motion.span 
-                key="dark"
-                initial={{ opacity: 0, rotate: -45, scale: 0.5 }}
-                animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                exit={{ opacity: 0, rotate: 45, scale: 0.5 }}
-                className="material-symbols-outlined text-[20px]"
-              >
-                light_mode
-              </motion.span>
-            ) : (
-              <motion.span 
-                key="light"
-                initial={{ opacity: 0, rotate: -45, scale: 0.5 }}
-                animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                exit={{ opacity: 0, rotate: 45, scale: 0.5 }}
-                className="material-symbols-outlined text-[20px]"
-              >
-                dark_mode
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </button>
-
-        <button className="hidden md:flex items-center justify-center h-11 px-8 bg-brand-blue hover:bg-accent-blue text-white text-[10px] font-black uppercase tracking-widest rounded-full transition-all shadow-lg shadow-blue-900/20 active:scale-95">
-          Get in Touch
-        </button>
-
-        {/* Mobile Menu Icon */}
-        <button 
-          className="md:hidden text-slate-900 dark:text-white p-2 hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          <span className="material-symbols-outlined text-3xl">
-            {isMenuOpen ? 'close' : 'menu'}
-          </span>
-        </button>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="absolute top-full left-0 w-full bg-white dark:bg-background-dark/95 backdrop-blur-xl md:hidden border-t border-black/5 dark:border-white/10 py-8 px-6 shadow-2xl"
-          >
-            <nav className="flex flex-col gap-6">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.name}
-                  className="text-slate-900 dark:text-white text-lg font-black uppercase tracking-widest hover:text-brand-blue transition-colors"
-                  href={link.href}
-                  onClick={(e) => handleNavClick(e, link.href)}
+        {/* Mobile Navigation Box */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              className="absolute top-[calc(100%+10px)] right-6 w-[280px] z-[65] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-100 dark:border-white/10 overflow-hidden"
+            >
+              <nav className="flex flex-col p-6 gap-4">
+                {NAV_LINKS.map((link, idx) => (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    onClick={closeMenu}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.05 }}
+                    className="text-sm font-black text-slate-700 dark:text-white/80 uppercase tracking-widest hover:text-brand-blue py-2 border-b border-slate-50 dark:border-white/5 last:border-0"
+                  >
+                    {link.name}
+                  </motion.a>
+                ))}
+                <motion.button 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.3 }}
+                  className="mt-2 w-full h-12 bg-brand-blue text-white font-black text-[10px] uppercase tracking-widest rounded-xl shadow-lg active:scale-95 transition-transform"
                 >
-                  {link.name}
-                </a>
-              ))}
-              <button className="w-full h-14 bg-brand-blue text-white font-black uppercase tracking-widest rounded-full shadow-lg">
-                Get in Touch
-              </button>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+                  Get in Touch
+                </motion.button>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+
+      {/* Click-out overlay for mobile menu */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 z-[59] md:hidden" onClick={closeMenu}></div>
+      )}
+    </>
   );
 };
 
