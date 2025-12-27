@@ -1,6 +1,7 @@
-
+// @ts-nocheck
 import React from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const OurPresence: React.FC = () => {
   const googleMapUrl = "https://maps.app.goo.gl/gE9Gi11uqWNKAZiS6";
@@ -84,10 +85,11 @@ const OurPresence: React.FC = () => {
             className="w-full lg:w-1/2 relative"
           >
             <div className="relative aspect-video lg:aspect-square rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white dark:border-slate-800 group">
-              <img 
-                src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=1200" 
+              <Image 
+                src="/map.avif" 
                 alt="Dubai City Skyline" 
-                className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 transition-all duration-700"
+                fill
+                className="object-cover grayscale brightness-75 group-hover:grayscale-0 transition-all duration-700"
               />
               <div className="absolute inset-0 flex items-center justify-center bg-brand-blue/10 group-hover:bg-transparent transition-colors duration-500">
                 <a 

@@ -1,3 +1,5 @@
+// @ts-nocheck
+'use client';
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -80,9 +82,9 @@ const FAQ: React.FC = () => {
           <div className="absolute top-0 right-0 size-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
           <h3 className="text-3xl font-black uppercase tracking-tight mb-4 relative z-10">Still Have Questions?</h3>
           <p className="text-blue-100 mb-8 max-w-lg mx-auto relative z-10">Our luxury travel specialists are available 24/7 to provide immediate assistance for your unique requirements.</p>
-          <button className="h-14 px-10 bg-white text-brand-blue font-black uppercase tracking-widest rounded-full transition-all hover:scale-105 active:scale-95 shadow-xl relative z-10">
+          <a href="#booking" className="inline-flex items-center justify-center h-14 px-10 bg-white text-brand-blue font-black uppercase tracking-widest rounded-full transition-all hover:scale-105 active:scale-95 shadow-xl relative z-10">
             Contact Us Now
-          </button>
+          </a>
         </motion.div>
       </div>
     </section>

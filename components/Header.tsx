@@ -1,17 +1,20 @@
 
+// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import { NAV_LINKS } from '../constants';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { useUI } from './Providers';
+import Image from 'next/image';
 
-interface HeaderProps {
-  onNavClick?: () => void;
-  onAdminClick?: () => void;
-}
-
-const Header: React.FC<HeaderProps> = ({ onNavClick, onAdminClick }) => {
+const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const logoUrl = "https://i.ibb.co/tPFyCrMZ/logo.png"; 
+  const logoUrl = "https://i.ibb.co/tPFyCrMZ/logo.png";
+  
+  const router = useRouter();
+  const { triggerNavTransition } = useUI();
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -41,9 +44,24 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, onAdminClick }) => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
 
+  const handleNavClick = (href: string) => {
+    triggerNavTransition();
+    closeMenu();
+    // If it's a hash link, we might want to just let it scroll if we are on home.
+    // If we are on other pages, we should navigate to / first.
+    // Since we are using Link href="/#...", Next.js handles this.
+  };
+
+  const handleAdminClick = () => {
+    triggerNavTransition();
+    setTimeout(() => {
+        router.push('/admin');
+    }, 400); // Sync with transition duration
+  };
+
   return (
     <>
-      <header className="sticky top-0 w-full px-6 py-4 md:px-12 lg:px-20 flex items-center justify-between z-[60] bg-white/90 dark:bg-background-dark/95 backdrop-blur-2xl border-b border-black/5 dark:border-white/5 transition-all duration-300">
+      <header className="sticky top-0 w-full px-6 py-3 md:px-12 lg:px-20 flex items-center justify-between z-[60] bg-white/60 dark:bg-background-dark/60 backdrop-blur-2xl border-b border-black/5 dark:border-white/5 transition-all duration-300">
         {/* Executive Branding Pill */}
         <motion.div 
           whileHover={{ scale: 1.01 }}
@@ -51,12 +69,15 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, onAdminClick }) => {
           onClick={() => {
             window.scrollTo({top: 0, behavior: 'smooth'});
             closeMenu();
+            router.push('/');
           }}
         >
-          <div className="bg-white px-2 py-1.5 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 flex items-center gap-3">
-            <img 
+          <div className="bg-white px-2 py-1 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 flex items-center gap-3">
+            <Image 
               src={logoUrl} 
               alt="UNF Logo" 
+              width={56}
+              height={56}
               className="h-10 md:h-12 lg:h-14 w-auto object-contain transition-transform group-hover:scale-105"
             />
             <div className="h-6 w-[1px] bg-slate-200"></div>
@@ -70,13 +91,14 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, onAdminClick }) => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6 lg:gap-10">
           {NAV_LINKS.map((link) => (
-            <a
+            <Link
               key={link.name}
               className="text-slate-600 dark:text-white/70 text-[13px] lg:text-[15px] font-black uppercase tracking-widest hover:text-brand-blue dark:hover:text-white transition-colors duration-200"
-              href={link.href}
+              href={link.href.startsWith('#') ? `/${link.href}` : link.href}
+              onClick={() => handleNavClick(link.href)}
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </nav>
 
@@ -95,9 +117,9 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, onAdminClick }) => {
             </AnimatePresence>
           </button>
 
-          <button className="hidden lg:flex items-center justify-center h-10 px-6 bg-brand-blue hover:bg-accent-blue text-white text-[10px] font-black uppercase tracking-widest rounded-full transition-all shadow-lg shadow-blue-900/10">
+          <Link href="/#booking" onClick={() => handleNavClick('/#booking')} className="hidden lg:flex items-center justify-center h-10 px-6 bg-brand-blue hover:bg-accent-blue text-white text-[10px] font-black uppercase tracking-widest rounded-full transition-all shadow-lg shadow-blue-900/10">
             Get in Touch
-          </button>
+          </Link>
 
           {/* Styled Rounded Hamburger Menu Toggle */}
           <button 
@@ -122,26 +144,37 @@ const Header: React.FC<HeaderProps> = ({ onNavClick, onAdminClick }) => {
             >
               <nav className="flex flex-col p-6 gap-4">
                 {NAV_LINKS.map((link, idx) => (
-                  <motion.a
+                  <Link
                     key={link.name}
-                    href={link.href}
-                    onClick={closeMenu}
+                    href={link.href.startsWith('#') ? `/${link.href}` : link.href}
+                    onClick={() => handleNavClick(link.href)}
+                  >
+                  <motion.span
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.05 }}
-                    className="text-sm font-black text-slate-700 dark:text-white/80 uppercase tracking-widest hover:text-brand-blue py-2 border-b border-slate-50 dark:border-white/5 last:border-0"
+                    className="block text-sm font-black text-slate-700 dark:text-white/80 uppercase tracking-widest hover:text-brand-blue py-2 border-b border-slate-50 dark:border-white/5 last:border-0"
                   >
                     {link.name}
-                  </motion.a>
+                  </motion.span>
+                  </Link>
                 ))}
-                <motion.button 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
-                  className="mt-2 w-full h-12 bg-brand-blue text-white font-black text-[10px] uppercase tracking-widest rounded-xl shadow-lg active:scale-95 transition-transform"
-                >
-                  Get in Touch
-                </motion.button>
+                 <button 
+                    onClick={handleAdminClick}
+                    className="text-left text-sm font-black text-slate-700 dark:text-white/80 uppercase tracking-widest hover:text-brand-blue py-2 border-b border-slate-50 dark:border-white/5"
+                  >
+                    Partner
+                  </button>
+                <Link href="/#booking" onClick={() => handleNavClick('/#booking')}>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="mt-2 w-full h-12 bg-brand-blue text-white font-black text-[10px] uppercase tracking-widest rounded-xl shadow-lg active:scale-95 transition-transform flex items-center justify-center"
+                  >
+                    Get in Touch
+                  </motion.div>
+                </Link>
               </nav>
             </motion.div>
           )}

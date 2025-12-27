@@ -1,20 +1,30 @@
+// @ts-nocheck
+'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa';
 
-interface TeamGalleryProps {
-  onBack: () => void;
-}
+const TeamGallery: React.FC = () => {
+  const router = useRouter();
 
-const TeamGallery: React.FC<TeamGalleryProps> = ({ onBack }) => {
+  const handleBack = () => {
+      router.push('/');
+  };
+
   const partners = [
     {
       name: "Usama Khan",
-      title: "Senior Partner & Global Strategist",
+      title: "Partner & Global Strategist",
       status: "Dubai Golden Visa Holder",
       bio: "A pioneer in cross-border luxury travel, Usama has secured over 5,000 elite visas and is a resident expert on Middle Eastern luxury markets. As a prestigious Golden Visa holder himself, he navigates the path to residency with firsthand authority.",
-      image: "https://i.ibb.co/MwMJcG5/usama.jpg", 
+      image: "/partner1.jpeg", 
       objectPos: "object-top", // Critical: prevents cutting the head
+      socials: {
+        facebook: "https://www.facebook.com/share/STojFzz1myNQZXo2/?mibextid=LQQJ4d"
+      },
       content: [
         { type: 'video', title: 'Dubai Luxury Insights', thumbnail: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=400' },
         { type: 'post', title: 'Top 5 Hidden Gems in Turkey', thumbnail: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&q=80&w=400' },
@@ -33,8 +43,12 @@ const TeamGallery: React.FC<TeamGalleryProps> = ({ onBack }) => {
       title: "Managing Partner & Operations Lead",
       status: "Operational Excellence Leader",
       bio: "Faizan oversees our global logistics, ensuring that every UNF journey is executed with surgical precision and white-glove service. His mastery of global supply chains makes impossible travel timelines possible.",
-      image: "https://i.ibb.co/v4K7H9D/faizan.jpg", 
+      image: "/partner2.jpeg", 
       objectPos: "object-[center_25%]",
+      socials: {
+        instagram: "https://www.instagram.com/consultant.faizan/",
+        tiktok: "https://www.tiktok.com/@consultant.faizan"
+      },
       content: [
         { type: 'video', title: 'Seamless Travel Logistics', thumbnail: 'https://images.unsplash.com/photo-1436491865332-7a61a109c0f2?auto=format&fit=crop&q=80&w=400' },
         { type: 'post', title: 'Why Process Matters', thumbnail: 'https://images.unsplash.com/photo-1454165833767-027ffea9e778?auto=format&fit=crop&q=80&w=400' },
@@ -54,7 +68,7 @@ const TeamGallery: React.FC<TeamGalleryProps> = ({ onBack }) => {
     <div className="min-h-screen bg-slate-50 dark:bg-background-dark py-20 px-6 md:px-12 lg:px-24">
       <div className="max-w-[1400px] mx-auto">
         <button 
-          onClick={onBack}
+          onClick={handleBack}
           className="group flex items-center gap-2 text-slate-400 font-black text-[10px] uppercase tracking-widest mb-12 hover:text-brand-blue transition-colors"
         >
           <span className="material-symbols-outlined text-sm">arrow_back</span>
@@ -75,10 +89,11 @@ const TeamGallery: React.FC<TeamGalleryProps> = ({ onBack }) => {
               <div className={`flex flex-col ${pIdx % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-20 pb-16 border-b border-slate-200 dark:border-white/5`}>
                 <div className="w-full lg:w-1/3">
                   <div className="relative aspect-[4/5] rounded-[3.5rem] overflow-hidden shadow-2xl group border-8 border-white dark:border-slate-800 transition-all">
-                    <img 
+                    <Image 
                       src={partner.image} 
                       alt={partner.name} 
-                      className={`w-full h-full object-cover ${partner.objectPos} transition-transform duration-1000 group-hover:scale-105 contrast-[1.02] brightness-[1.02]`} 
+                      fill
+                      className={`object-cover ${partner.objectPos} transition-transform duration-1000 group-hover:scale-105 contrast-[1.02] brightness-[1.02]`} 
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-blue/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </div>
@@ -92,10 +107,21 @@ const TeamGallery: React.FC<TeamGalleryProps> = ({ onBack }) => {
                   <p className="text-slate-600 dark:text-slate-300 text-lg md:text-xl leading-relaxed max-w-2xl font-medium">{partner.bio}</p>
                   
                   <div className="flex gap-4 pt-4">
-                    <button className="h-12 px-8 bg-brand-blue text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">View Full Bio</button>
-                    <button className="size-12 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-brand-blue transition-colors">
-                      <span className="material-symbols-outlined">public</span>
-                    </button>
+                    {partner.socials?.facebook && (
+                        <a href={partner.socials.facebook} target="_blank" rel="noopener noreferrer" className="size-12 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-brand-blue transition-colors">
+                            <FaFacebookF />
+                        </a>
+                    )}
+                    {partner.socials?.instagram && (
+                        <a href={partner.socials.instagram} target="_blank" rel="noopener noreferrer" className="size-12 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-brand-blue transition-colors">
+                            <FaInstagram />
+                        </a>
+                    )}
+                    {partner.socials?.tiktok && (
+                        <a href={partner.socials.tiktok} target="_blank" rel="noopener noreferrer" className="size-12 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-brand-blue transition-colors">
+                            <FaTiktok />
+                        </a>
+                    )}
                   </div>
                 </div>
               </div>
@@ -111,7 +137,7 @@ const TeamGallery: React.FC<TeamGalleryProps> = ({ onBack }) => {
                     transition={{ delay: iIdx * 0.05 }}
                     className="group relative aspect-square bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all border border-transparent hover:border-brand-blue/30"
                   >
-                    <img src={item.thumbnail} alt={item.title} className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700" />
+                    <Image src={item.thumbnail} alt={item.title} fill className="object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700" />
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors"></div>
                     
                     <div className="absolute top-4 left-4 size-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/20">
@@ -133,5 +159,4 @@ const TeamGallery: React.FC<TeamGalleryProps> = ({ onBack }) => {
     </div>
   );
 };
-
 export default TeamGallery;

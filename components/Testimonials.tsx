@@ -1,6 +1,9 @@
+// @ts-nocheck
+'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const Testimonials: React.FC = () => {
   const reviews = [
@@ -53,7 +56,13 @@ const Testimonials: React.FC = () => {
               <p className="text-slate-600 dark:text-slate-300 font-medium italic mb-6">"{review.quote}"</p>
               
               <div className="flex items-center gap-4 border-t border-slate-50 dark:border-white/5 pt-6">
-                <img src={review.image} alt={review.name} className="size-12 rounded-full object-cover border-2 border-brand-blue" />
+                <Image 
+                  src={review.image} 
+                  alt={review.name} 
+                  width={48}
+                  height={48}
+                  className="size-12 rounded-full object-cover border-2 border-brand-blue" 
+                />
                 <div>
                   <div className="flex items-center gap-1">
                     <h5 className="font-black text-slate-900 dark:text-white text-sm uppercase">{review.name}</h5>

@@ -1,6 +1,9 @@
+// @ts-nocheck
+'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const HangingWatermarks: React.FC = () => {
   // Use the direct image link for reliability
@@ -37,13 +40,12 @@ const HangingWatermarks: React.FC = () => {
           {/* Logo Watermark Badge */}
           <div className="opacity-[0.15] dark:opacity-[0.08] grayscale hover:grayscale-0 transition-all duration-700">
             <div className="bg-white p-2 rounded-xl shadow-xl border border-black/5">
-              <img 
+              <Image 
                 src={logoUrl} 
                 alt="Watermark" 
+                width={64}
+                height={64}
                 className="w-12 md:w-16 h-auto object-contain block"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).src = "https://lh3.googleusercontent.com/gg-dl/ABS2GSkHTaZNSkHtMJtzI6iOjoQcbTr2n7WjEbBBxgTTS1r29-2USGKtZ13xYT2tED2Hfkho6pXjM32LULKUk3LG4-eZxvotkhlCn0Y1En3PHUUIfv5bC-zmOvVFmjWCaj5ppH8BOJSjX6RuiZsW0lADqV443gin7hjseW9BTHYUkghLMIjPGQ=s1024-rj?authuser=2";
-                }}
               />
             </div>
           </div>

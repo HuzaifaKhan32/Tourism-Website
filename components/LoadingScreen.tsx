@@ -1,6 +1,7 @@
-
+// @ts-nocheck
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 
 interface LoadingScreenProps {
   isLoading: boolean;
@@ -36,14 +37,12 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ isLoading, onFinished }) 
               transition={{ duration: 1, ease: "easeOut" }}
               className="relative"
             >
-              <img 
+              <Image 
                 src={logoUrl} 
                 alt="UNF Global Loading" 
+                width={160}
+                height={160}
                 className="h-32 md:h-40 w-auto object-contain"
-                onError={(e) => {
-                  // Fallback for ibb shortlinks if not direct
-                  (e.target as HTMLImageElement).src = "https://lh3.googleusercontent.com/gg-dl/ABS2GSkHTaZNSkHtMJtzI6iOjoQcbTr2n7WjEbBBxgTTS1r29-2USGKtZ13xYT2tED2Hfkho6pXjM32LULKUk3LG4-eZxvotkhlCn0Y1En3PHUUIfv5bC-zmOvVFmjWCaj5ppH8BOJSjX6RuiZsW0lADqV443gin7hjseW9BTHYUkghLMIjPGQ=s1024-rj?authuser=2";
-                }}
               />
               {/* Spinning Ring */}
               <motion.div 

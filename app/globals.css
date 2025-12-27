@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    height: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.05);
+    border-radius: 10px;
+  }
+  .dark .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255,255,255,0.05);
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #2B5F7F;
+    border-radius: 10px;
+  }
+}
+
+.parallax-bg {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Custom scrollbar for better aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #141a1e;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #141a1e;
+}
+::-webkit-scrollbar-thumb {
+  background: #2B5F7F;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #4A7FA0;
+}
+
+.bg-pattern {
+    background-color: #f6f7f8;
+    background-image:  radial-gradient(#2b5e7d1a 1.5px, transparent 1.5px), radial-gradient(#2b5e7d1a 1.5px, #f6f7f8 1.5px);
+    background-size: 30px 30px;
+    background-position: 0 0, 15px 15px;
+}
+.dark .bg-pattern {
+    background-color: #141a1e;
+    background-image:  radial-gradient(#ffffff0d 1.5px, transparent 1.5px), radial-gradient(#ffffff0d 1.5px, #141a1e 1.5px);
+}

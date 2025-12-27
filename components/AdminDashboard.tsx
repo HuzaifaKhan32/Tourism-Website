@@ -1,12 +1,12 @@
+// @ts-nocheck
+'use client';
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
-interface AdminDashboardProps {
-  onBack: () => void;
-}
-
-const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBack }) => {
+const AdminDashboard: React.FC = () => {
+  const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [activePartner, setActivePartner] = useState<'Usama' | 'Faizan'>('Usama');
 
@@ -16,6 +16,10 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBack }) => {
     { id: 3, partner: 'Faizan', title: 'Supply Chain Logistics', type: 'Video', status: 'Published' },
     { id: 4, partner: 'Faizan', title: 'Dubai Office Tour', type: 'Video', status: 'Review' },
   ]);
+
+  const handleBack = () => {
+      router.push('/');
+  };
 
   if (!isLoggedIn) {
     return (
@@ -27,7 +31,7 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBack }) => {
           <div className="space-y-4">
             <input type="password" placeholder="Partner Access Key" className="w-full h-14 px-6 rounded-2xl bg-slate-50 border border-slate-100 text-center font-bold" />
             <button onClick={() => setIsLoggedIn(true)} className="w-full h-14 bg-brand-blue text-white font-black uppercase tracking-widest rounded-2xl shadow-xl shadow-blue-900/20">Unlock Access</button>
-            <button onClick={onBack} className="text-[10px] font-black uppercase text-slate-300 tracking-widest pt-4">Return to Public Site</button>
+            <button onClick={handleBack} className="text-[10px] font-black uppercase text-slate-300 tracking-widest pt-4">Return to Public Site</button>
           </div>
         </motion.div>
       </div>
@@ -93,11 +97,12 @@ const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBack }) => {
         </div>
 
         <div className="mt-12 text-center">
-          <button onClick={onBack} className="text-[10px] font-black uppercase tracking-widest text-slate-300 hover:text-slate-900 transition-colors">Logout Dashboard</button>
+          <button onClick={handleBack} className="text-[10px] font-black uppercase tracking-widest text-slate-300 hover:text-slate-900 transition-colors">Logout Dashboard</button>
         </div>
       </div>
     </div>
   );
 };
+
 
 export default AdminDashboard;

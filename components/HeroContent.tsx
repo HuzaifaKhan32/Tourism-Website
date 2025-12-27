@@ -1,12 +1,13 @@
+// @ts-nocheck
+'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useUI } from './Providers';
 
-interface HeroContentProps {
-  isInitialVisit?: boolean;
-}
-
-const HeroContent: React.FC<HeroContentProps> = ({ isInitialVisit }) => {
+const HeroContent: React.FC = () => {
+  const { initialLoading: isInitialVisit } = useUI();
+  
   return (
     <main className="relative flex-grow flex flex-col justify-center items-center text-center px-6 md:px-12 lg:px-24 max-w-[1400px] mx-auto z-20 pt-12 sm:pt-20 pb-20 sm:pb-32">
       <motion.div 

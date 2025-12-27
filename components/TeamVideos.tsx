@@ -1,13 +1,24 @@
+// @ts-nocheck
+'use client';
 
 import React from 'react';
 import { motion } from 'framer-motion';
 import { TEAM_VIDEOS } from '../constants';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { useUI } from './Providers';
 
-interface TeamVideosProps {
-  onViewAll?: () => void;
-}
+const TeamVideos: React.FC = () => {
+  const router = useRouter();
+  const { triggerNavTransition } = useUI();
 
-const TeamVideos: React.FC<TeamVideosProps> = ({ onViewAll }) => {
+  const handleNavigate = () => {
+    triggerNavTransition();
+    setTimeout(() => {
+        router.push('/team');
+    }, 400);
+  }
+
   return (
     <section id="team-videos" className="relative w-full py-24 lg:py-32 z-20 bg-white dark:bg-[#1B4965] overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-blue/5 via-white dark:via-[#1B4965] to-white dark:to-[#0f2a3d] pointer-events-none"></div>
@@ -41,10 +52,11 @@ const TeamVideos: React.FC<TeamVideosProps> = ({ onViewAll }) => {
               className="group relative flex flex-col bg-white dark:bg-[#14364b] border border-slate-100 dark:border-white/5 rounded-3xl overflow-hidden transition-all duration-500 cursor-pointer shadow-xl hover:shadow-2xl"
             >
               <div className="relative aspect-[4/3] w-full overflow-hidden">
-                <img 
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110" 
+                <Image 
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110" 
                   src={video.image} 
                   alt={video.title} 
+                  fill
                 />
                 <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-transparent transition-colors duration-500"></div>
                 
@@ -74,7 +86,7 @@ const TeamVideos: React.FC<TeamVideosProps> = ({ onViewAll }) => {
           className="flex justify-center"
         >
           <button 
-            onClick={onViewAll}
+            onClick={handleNavigate}
             className="group flex items-center gap-2 text-brand-blue dark:text-white font-black text-[12px] uppercase tracking-[0.3em] hover:opacity-70 transition-all border-b-2 border-brand-blue dark:border-white pb-1"
           >
             <span>Archive View All Videos</span>

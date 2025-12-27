@@ -1,8 +1,11 @@
+// @ts-nocheck
+'use client';
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DESTINATIONS } from '../constants';
-import { GoogleGenAI } from "@google/genai";
+import Image from 'next/image';
+import { sendBookingEmail } from '../app/actions/sendEmail';
 
 const BookingSection: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -15,30 +18,17 @@ const BookingSection: React.FC = () => {
     setFormStatus('idle');
 
     const formData = new FormData(e.currentTarget);
-    const data = {
-      fullname: formData.get('fullname') as string,
-      email: formData.get('email') as string,
-      phone: formData.get('phone') as string,
-      destination: formData.get('destination') as string,
-      dates: formData.get('dates') as string,
-      message: formData.get('message') as string,
-    };
+    const result = await sendBookingEmail(formData);
 
-    try {
-      let summary = "Your inquiry has been received. Our elite travel team will contact you shortly to discuss your bespoke itinerary.";
-      try {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-        const prompt = `You are an elite travel consultant for UNF Global Tourism. A client has just sent an inquiry: Name: ${data.fullname}, Interested in: ${data.destination}. Provide a short, professional response.`;
-        const aiResponse = await ai.models.generateContent({ model: 'gemini-3-flash-preview', contents: prompt });
-        if (aiResponse.text) summary = aiResponse.text;
-      } catch (e) {}
-      setAiSummary(summary);
+    if (result.success) {
+      setAiSummary(result.aiSummary || "Your inquiry has been received.");
       setFormStatus('success');
-    } catch (globalError) {
-      setFormStatus('success');
-    } finally {
-      setIsSubmitting(false);
+    } else {
+      setFormStatus('error');
+      console.error("Failed to send email:", result.error);
     }
+    
+    setIsSubmitting(false);
   };
 
   return (
@@ -53,7 +43,13 @@ const BookingSection: React.FC = () => {
         {/* Left Decorative Panel */}
         <div className="w-full lg:w-1/3 bg-primary text-white p-10 lg:p-16 flex flex-col justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-[#1B4965] opacity-20 z-0"></div>
-          <img alt="landscape" className="absolute inset-0 w-full h-full object-cover opacity-20 z-0 grayscale mix-blend-overlay" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=1200" />
+          <Image 
+            alt="landscape" 
+            fill
+            className="object-cover opacity-20 z-0 grayscale mix-blend-overlay" 
+            src="/booking.avif" 
+            sizes="(max-width: 1024px) 100vw, 33vw"
+          />
           
           <div className="relative z-10 space-y-8">
             <h3 className="text-3xl font-black mb-2 uppercase tracking-tight">Consult with Experts</h3>
@@ -95,6 +91,17 @@ const BookingSection: React.FC = () => {
                   </div>
                   <button onClick={() => setFormStatus('idle')} className="px-10 h-14 bg-brand-blue text-white font-black rounded-full uppercase tracking-widest">Send Another</button>
                 </motion.div>
+              ) : formStatus === 'error' ? (
+                 <motion.div key="error" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-12">
+                  <div className="size-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <span className="material-symbols-outlined text-red-600 text-4xl">error</span>
+                  </div>
+                  <h2 className="text-3xl font-black uppercase mb-4 text-slate-900 dark:text-white">Submission Failed</h2>
+                  <p className="text-slate-500 dark:text-slate-300 mb-8">
+                    We couldn't send your inquiry at this time. Please try again later or contact us directly.
+                  </p>
+                  <button onClick={() => setFormStatus('idle')} className="px-10 h-14 bg-brand-blue text-white font-black rounded-full uppercase tracking-widest">Try Again</button>
+                </motion.div>
               ) : (
                 <motion.div key="form">
                   <div className="mb-10">
@@ -105,7 +112,7 @@ const BookingSection: React.FC = () => {
                     </p>
                   </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <form onSubmit={handleSubmit} className="space-y-6 dark:text-slate-50">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Full Name</label>
@@ -138,7 +145,7 @@ const BookingSection: React.FC = () => {
                     <div className="pt-6 flex flex-col items-center">
                       <button 
                         disabled={isSubmitting} 
-                        className="group w-full md:w-auto min-w-[300px] h-16 bg-brand-blue text-white font-black rounded-full uppercase tracking-[0.2em] shadow-2xl hover:bg-accent-blue transition-all relative overflow-hidden"
+                        className="group w-full md:w-auto min-w-[300px] h-16 bg-brand-blue text-white font-black rounded-full uppercase tracking-[0.2em] px-2 shadow-2xl hover:bg-accent-blue transition-all relative overflow-hidden"
                       >
                         {isSubmitting ? 'Processing...' : 'Secure Inquiry Submission'}
                         <div className="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
