@@ -1,7 +1,7 @@
 'use server';
 
 import { Resend } from 'resend';
-import { GoogleGenerativeAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // NOTE: This is a placeholder for a more robust email template
 const createEmailHtml = (data: { [key: string]: string }): string => {
@@ -50,7 +50,7 @@ export async function sendBookingEmail(formData: FormData) {
   // 2. Generate AI summary using Gemini
   let aiSummary = "Your inquiry has been received. Our elite travel team will contact you shortly to discuss your bespoke itinerary.";
   try {
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.API_KEY;
     if (apiKey) {
       const genAI = new GoogleGenerativeAI(apiKey);
       const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });

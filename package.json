@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@google/genai": "^1.34.0",
+    "@google/generative-ai": "^0.21.0",
     "clsx": "^2.1.0",
     "framer-motion": "12.23.26",
     "next": "15.0.0",
