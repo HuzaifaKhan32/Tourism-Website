@@ -159,12 +159,6 @@ const Header: React.FC = () => {
                   </motion.span>
                   </Link>
                 ))}
-                 <button 
-                    onClick={handleAdminClick}
-                    className="text-left text-sm font-black text-slate-700 dark:text-white/80 uppercase tracking-widest hover:text-brand-blue py-2 border-b border-slate-50 dark:border-white/5"
-                  >
-                    Partner
-                  </button>
                 <Link href="/#booking" onClick={() => handleNavClick('/#booking')}>
                   <motion.div
                     initial={{ opacity: 0 }}

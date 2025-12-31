@@ -3,6 +3,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { NAV_LINKS } from '../constants';
 
 const Footer: React.FC = () => {
   const logoUrl = "https://i.ibb.co/tPFyCrMZ/logo.png"; 
@@ -40,28 +41,20 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          {/* Column 2 */}
+          {/* Column 2: Quick Links */}
           <div>
-            <h3 className="text-[11px] font-black uppercase mb-8 tracking-[0.2em] text-slate-400">Services</h3>
+            <h3 className="text-[11px] font-black uppercase mb-8 tracking-[0.2em] text-slate-400">Explore</h3>
             <ul className="space-y-4">
-              {['Visa Strategy', 'Luxury Packages', 'VIP Concierge', 'Estate Bookings', 'Private Aviation'].map(item => (
-                <li key={item}>
-                  <a href="#" className="text-slate-600 dark:text-gray-400 hover:text-brand-blue dark:hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors">{item}</a>
+              {NAV_LINKS.map(link => (
+                <li key={link.name}>
+                  <a href={link.href} className="text-slate-600 dark:text-gray-400 hover:text-brand-blue dark:hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors">{link.name}</a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3 */}
+          {/* Column 3: Spacer or another section if needed, keeping it empty for now as requested to remove Governance */}
           <div>
-            <h3 className="text-[11px] font-black uppercase mb-8 tracking-[0.2em] text-slate-400">Governance</h3>
-            <ul className="space-y-4">
-              {['Privacy Protocol', 'Operational Terms', 'Cookie Policy', 'Audit Disclosures', 'Ethics Charter'].map(item => (
-                <li key={item}>
-                  <a href="#" className="text-slate-600 dark:text-gray-400 hover:text-brand-blue dark:hover:text-white text-[10px] font-bold uppercase tracking-widest transition-colors">{item}</a>
-                </li>
-              ))}
-            </ul>
           </div>
 
           {/* Contact */}

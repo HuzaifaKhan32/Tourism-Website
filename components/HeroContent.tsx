@@ -41,6 +41,10 @@ const HeroContent: React.FC = () => {
               scale: [1, 1.05, 1],
               transition: { duration: 1.5, repeat: 0, delay: 1 } 
             } : {}}
+            onClick={() => {
+              const element = document.getElementById('popular-packages');
+              element?.scrollIntoView({ behavior: 'smooth' });
+            }}
             className="group w-full sm:w-auto min-w-[200px] sm:min-w-[240px] h-14 sm:h-16 px-8 sm:px-10 bg-brand-blue hover:bg-white hover:text-brand-blue text-white text-sm sm:text-base font-bold rounded-full transition-all duration-300 shadow-2xl shadow-blue-900/40 flex items-center justify-center gap-3 relative overflow-hidden"
           >
             {/* Inner pulse ring */}
@@ -53,14 +57,6 @@ const HeroContent: React.FC = () => {
             <span className="relative z-10 material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">
               arrow_forward
             </span>
-          </motion.button>
-          
-          <motion.button 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            className="group w-full sm:w-auto min-w-[200px] sm:min-w-[240px] h-14 sm:h-16 px-8 sm:px-10 bg-white/5 border border-white/30 hover:bg-white/20 text-white text-sm sm:text-base font-bold rounded-full transition-all duration-300 backdrop-blur-md flex items-center justify-center"
-          >
-            <span>Learn More</span>
           </motion.button>
         </div>
       </motion.div>

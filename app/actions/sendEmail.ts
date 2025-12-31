@@ -33,7 +33,7 @@ export async function sendBookingEmail(formData: FormData) {
     const resend = new Resend(process.env.RESEND_API_KEY);
     const { error: emailError } = await resend.emails.send({
       from: 'UNF Global Inquiry <onboarding@resend.dev>',
-      to: ['huzaifakhan0856551@gmail.com'],
+      to: ['unfglobaltourism@gmail.com'],
       subject: `New Inquiry from ${data.fullname} for ${data.destination}`,
       html: createEmailHtml(data),
     });

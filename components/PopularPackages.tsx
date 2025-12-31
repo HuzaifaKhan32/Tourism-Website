@@ -4,6 +4,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PACKAGES, Package } from '../constants';
+import { useUI } from './Providers';
 
 type Category = 'All' | 'Beach' | 'City' | 'Nature';
 type SortOrder = 'none' | 'low-to-high' | 'high-to-low';
@@ -11,6 +12,28 @@ type SortOrder = 'none' | 'low-to-high' | 'high-to-low';
 const PopularPackages: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category>('All');
   const [sortOrder, setSortOrder] = useState<SortOrder>('none');
+  const { setSelectedPackage } = useUI();
+
+  const handleBookNow = (pkg: Package) => {
+    const destinationMapping: Record<string, string> = {
+      'dubai': 'custom',
+      'turkey': 'custom',
+      'europe': 'europe',
+      'maldives': 'asia',
+      'japan': 'asia',
+      'swiss': 'europe',
+      'safari': 'safari'
+    };
+
+    setSelectedPackage({ 
+      title: pkg.title, 
+      price: pkg.price, 
+      description: pkg.description,
+      destination: destinationMapping[pkg.id] || 'custom'
+    });
+    const element = document.getElementById('booking');
+    element?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const categories: Category[] = ['All', 'Beach', 'City', 'Nature'];
 
@@ -142,7 +165,10 @@ const PopularPackages: React.FC = () => {
                           <span className="text-brand-blue dark:text-sky-400 text-2xl font-bold tracking-tight">{pkg.price}</span>
                           <span className="text-xs text-slate-400 font-bold uppercase tracking-widest">/person</span>
                         </div>
-                        <button className="flex-shrink-0 bg-brand-blue hover:bg-accent-blue text-white px-6 py-3 rounded-xl text-sm font-bold transition-all shadow-md active:scale-95">
+                        <button 
+                          onClick={() => handleBookNow(pkg)}
+                          className="flex-shrink-0 bg-brand-blue hover:bg-accent-blue text-white px-6 py-3 rounded-xl text-sm font-bold transition-all shadow-md active:scale-95"
+                        >
                           Book Now
                         </button>
                       </div>

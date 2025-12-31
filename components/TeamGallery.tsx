@@ -14,56 +14,52 @@ const TeamGallery: React.FC = () => {
       router.push('/');
   };
 
-  const partners = [
-    {
-      name: "Usama Khan",
-      title: "Partner & Global Strategist",
-      status: "Dubai Golden Visa Holder",
-      bio: "A pioneer in cross-border luxury travel, Usama has secured over 5,000 elite visas and is a resident expert on Middle Eastern luxury markets. As a prestigious Golden Visa holder himself, he navigates the path to residency with firsthand authority.",
-      image: "/partner1.jpeg", 
-      objectPos: "object-top", // Critical: prevents cutting the head
-      socials: {
-        facebook: "https://www.facebook.com/share/STojFzz1myNQZXo2/?mibextid=LQQJ4d"
+    const partners = [
+      {
+        name: "Usama Khan",
+        title: "Partner & Global Strategist",
+        status: "Dubai Golden Visa Holder",
+        bio: "A pioneer in cross-border luxury travel, Usama has secured over 5,000 elite visas and is a resident expert on Middle Eastern luxury markets. As a prestigious Golden Visa holder himself, he navigates the path to residency with firsthand authority.",
+        image: "/partner1.jpeg",
+        objectPos: "object-top", // Critical: prevents cutting the head
+        socials: {
+          facebook: "https://www.facebook.com/share/STojFzz1myNQZXo2/?mibextid=LQQJ4d"
+        },
+        content: [
+          { type: 'video', title: 'Dubai Luxury Insights', youtubeId: 'uSrDLdwPoaM' },
+          { type: 'video', title: 'Golden Visa Benefits', youtubeId: 'wbA5oCayNqg' },
+          { type: 'video', title: 'Yacht Life in Dubai', youtubeId: '65dP60msBEc' },
+          { type: 'video', title: 'Business in Emirates', youtubeId: 'WX47GaAsMpk' },
+          { type: 'video', title: 'Seamless Travel Logistics', youtubeId: '8SkCyP_Kcmg' },
+          { type: 'video', title: 'The Future of Tourism', youtubeId: '8SqOZ4zMlf0' },
+          { type: 'video', title: 'Efficiency in Travel', youtubeId: 'fG65V-yT2sU' },
+          { type: 'video', title: 'Global Office Network', youtubeId: 'jgqolZHh9ck' }
+        ]
       },
-      content: [
-        { type: 'video', title: 'Dubai Luxury Insights', thumbnail: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&q=80&w=400' },
-        { type: 'post', title: 'Top 5 Hidden Gems in Turkey', thumbnail: 'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?auto=format&fit=crop&q=80&w=400' },
-        { type: 'video', title: 'Visa Success Secrets', thumbnail: 'https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&q=80&w=400' },
-        { type: 'video', title: 'Golden Visa Benefits', thumbnail: 'https://images.unsplash.com/photo-1574950578143-858c6fc58922?auto=format&fit=crop&q=80&w=400' },
-        { type: 'post', title: 'Exclusive Burj Khalifa Access', thumbnail: 'https://images.unsplash.com/photo-1582672060674-bc2bd808a8b5?auto=format&fit=crop&q=80&w=400' },
-        { type: 'video', title: 'Yacht Life in Dubai', thumbnail: 'https://images.unsplash.com/photo-1567676147547-efbc3a7a726f?auto=format&fit=crop&q=80&w=400' },
-        { type: 'post', title: 'Desert Safari Tips', thumbnail: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400' },
-        { type: 'video', title: 'Business in Emirates', thumbnail: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=400' },
-        { type: 'video', title: 'Luxury Real Estate', thumbnail: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=400' },
-        { type: 'post', title: 'Networking in DXB', thumbnail: 'https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&q=80&w=400' }
-      ]
-    },
-    {
-      name: "Faizan",
-      title: "Managing Partner & Operations Lead",
-      status: "Operational Excellence Leader",
-      bio: "Faizan oversees our global logistics, ensuring that every UNF journey is executed with surgical precision and white-glove service. His mastery of global supply chains makes impossible travel timelines possible.",
-      image: "/partner2.jpeg", 
-      objectPos: "object-[center_25%]",
-      socials: {
-        instagram: "https://www.instagram.com/consultant.faizan/",
-        tiktok: "https://www.tiktok.com/@consultant.faizan"
-      },
-      content: [
-        { type: 'video', title: 'Seamless Travel Logistics', thumbnail: 'https://images.unsplash.com/photo-1436491865332-7a61a109c0f2?auto=format&fit=crop&q=80&w=400' },
-        { type: 'post', title: 'Why Process Matters', thumbnail: 'https://images.unsplash.com/photo-1454165833767-027ffea9e778?auto=format&fit=crop&q=80&w=400' },
-        { type: 'video', title: 'The Future of Tourism', thumbnail: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&q=80&w=400' },
-        { type: 'video', title: 'Efficiency in Travel', thumbnail: 'https://images.unsplash.com/photo-1464014058113-ed6fe2ba3bf2?auto=format&fit=crop&q=80&w=400' },
-        { type: 'post', title: 'Quality Assurance System', thumbnail: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=400' },
-        { type: 'video', title: 'Global Office Network', thumbnail: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=400' },
-        { type: 'post', title: 'Handling Complex Visa Paths', thumbnail: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80&w=400' },
-        { type: 'video', title: 'Team Performance Review', thumbnail: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=400' },
-        { type: 'video', title: 'Technology in Operations', thumbnail: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=400' },
-        { type: 'post', title: 'Client Satisfaction Index', thumbnail: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=400' }
-      ]
-    }
-  ];
-
+      {
+        name: "Faizan",
+        title: "Managing Partner & Operations Lead",
+        status: "Operational Excellence Leader",
+        bio: "Faizan oversees our global logistics, ensuring that every UNF journey is executed with surgical precision and white-glove service. His mastery of global supply chains makes impossible travel timelines possible.",
+        image: "/partner2.jpeg",
+        objectPos: "object-[center_25%]",
+        socials: {
+          instagram: "https://www.instagram.com/consultant.faizan/",
+          tiktok: "https://www.tiktok.com/@consultant.faizan"
+        },
+        content: [
+          { type: 'video', title: 'Operational Excellence', youtubeId: 'EkAG2uS0V5k' },
+          { type: 'video', title: 'Global Logistics Update', youtubeId: 'NNXon2Ek5GQ' },
+          { type: 'video', title: 'White-Glove Service', youtubeId: 'i5AW4Ue-xWI' },
+          { type: 'video', title: 'Supply Chain Mastery', youtubeId: 'cS-jOuHqNgM' },
+          { type: 'video', title: 'Travel Precision', youtubeId: 'iUsP4_tILCk' },
+          { type: 'video', title: 'UNF Journey Execution', youtubeId: 'XZMSFAY-0fU' },
+          { type: 'video', title: 'Mastering Timelines', youtubeId: 'WBzdMEIgsEw' },
+          { type: 'video', title: 'Global Operations', youtubeId: 'u-Sf4auj_wY' },
+          { type: 'video', title: 'Surgical Precision', youtubeId: '-GdOuFdXswU' }
+        ]
+      }
+    ];
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-background-dark py-20 px-6 md:px-12 lg:px-24">
       <div className="max-w-[1400px] mx-auto">
@@ -129,24 +125,31 @@ const TeamGallery: React.FC = () => {
               {/* Partner Grid - 10 items */}
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
                 {partner.content.map((item, iIdx) => (
-                  <motion.div 
+                  <motion.div
                     key={iIdx}
                     initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: iIdx * 0.05 }}
-                    className="group relative aspect-square bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all border border-transparent hover:border-brand-blue/30"
+                    className="group relative aspect-[9/16] bg-slate-100 dark:bg-slate-800 rounded-[2.5rem] overflow-hidden cursor-pointer shadow-md hover:shadow-2xl transition-all border border-transparent hover:border-brand-blue/30"
                   >
-                    <Image src={item.thumbnail} alt={item.title} fill className="object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700" />
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors"></div>
-                    
-                    <div className="absolute top-4 left-4 size-8 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/20">
-                      <span className="material-symbols-outlined text-[18px] text-white">
-                        {item.type === 'video' ? 'play_arrow' : 'article'}
-                      </span>
-                    </div>
+                    {item.type === 'video' ? (
+                        <div className="relative aspect-[9/16] w-full h-full">
+                            <iframe
+                                className="absolute top-0 left-0 w-full h-full"
+                                src={`https://www.youtube.com/embed/${item.youtubeId}?modestbranding=1&rel=0&iv_load_policy=3`}
+                                title="YouTube video player"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                loading="lazy"
+                            ></iframe>
+                        </div>
+                    ) : (
+                        <Image src={item.thumbnail} alt={item.title} fill className="object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700" />
+                    )}
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors pointer-events-none"></div>
 
-                    <div className="absolute inset-x-0 bottom-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform">
+                    <div className="absolute inset-x-0 bottom-0 p-6 translate-y-2 group-hover:translate-y-0 transition-transform pointer-events-none">
                       <p className="text-white font-black text-[10px] uppercase tracking-tighter line-clamp-2 leading-tight">{item.title}</p>
                     </div>
                   </motion.div>

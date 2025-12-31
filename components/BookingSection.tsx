@@ -1,16 +1,31 @@
 // @ts-nocheck
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DESTINATIONS } from '../constants';
 import Image from 'next/image';
 import { sendBookingEmail } from '../app/actions/sendEmail';
+import { useUI } from './Providers';
 
 const BookingSection: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formStatus, setFormStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [aiSummary, setAiSummary] = useState<string>('');
+  const { selectedPackage } = useUI();
+  
+  // Local state for form fields to handle user edits
+  const [message, setMessage] = useState('');
+  const [destination, setDestination] = useState('europe');
+
+  useEffect(() => {
+    if (selectedPackage) {
+      setMessage(`I am interested in booking the ${selectedPackage.title} package for ${selectedPackage.price}. \n\nPackage Description: ${selectedPackage.description}`);
+      if (selectedPackage.destination) {
+        setDestination(selectedPackage.destination);
+      }
+    }
+  }, [selectedPackage]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -127,8 +142,14 @@ const BookingSection: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Destination</label>
-                        <select className="w-full h-14 bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl px-4 text-sm font-bold appearance-none" required name="destination">
-                          {DESTINATIONS.map(d => <option key={d.value} value={d.value}>{d.label}</option>)}
+                        <select 
+                          className="w-full h-14 bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl px-4 text-sm font-bold appearance-none" 
+                          required 
+                          name="destination"
+                          value={destination}
+                          onChange={(e) => setDestination(e.target.value)}
+                        >
+                          {DESTINATIONS.map(d => <option key={d.value} value={d.value} className="text-slate-900">{d.label}</option>)}
                         </select>
                       </div>
                       <div className="space-y-2">
@@ -139,7 +160,13 @@ const BookingSection: React.FC = () => {
 
                     <div className="space-y-2">
                       <label className="text-[10px] font-black uppercase tracking-widest text-slate-400">Message</label>
-                      <textarea className="w-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl p-4 text-sm font-bold h-32" placeholder="Tell us about your trip..." name="message"></textarea>
+                      <textarea 
+                        className="w-full bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 rounded-2xl p-4 text-sm font-bold h-32" 
+                        placeholder="Tell us about your trip..." 
+                        name="message"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                      ></textarea>
                     </div>
 
                     <div className="pt-6 flex flex-col items-center">

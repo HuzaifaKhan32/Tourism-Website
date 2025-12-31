@@ -45,7 +45,7 @@ export const PACKAGES: Package[] = [
     category: 'City',
     image: '/hero3.png',
     description: 'Experience ultimate luxury in the desert with exclusive skyline views, private safaris, and fine dining under the stars.',
-    price: '$1,499',
+    price: 'AED 1,499',
     priceValue: 1499
   },
   {
@@ -54,7 +54,7 @@ export const PACKAGES: Package[] = [
     category: 'City',
     image: '/turkey.png',
     description: 'Watch hot air balloons rise over Cappadocia at dawn and explore ancient historical wonders in Istanbul.',
-    price: '$1,199',
+    price: 'AED 1,199',
     priceValue: 1199
   },
   {
@@ -63,7 +63,7 @@ export const PACKAGES: Package[] = [
     category: 'City',
     image: '/paris.png',
     description: 'A timeless journey through the history, romance, and culinary delights of Paris, Rome, and Barcelona.',
-    price: '$2,299',
+    price: 'AED 2,299',
     priceValue: 2299
   },
   {
@@ -72,7 +72,7 @@ export const PACKAGES: Package[] = [
     category: 'Beach',
     image: '/maldives.png',
     description: 'Escape to an island haven with crystal clear waters, pristine white sands, and luxurious overwater villas.',
-    price: '$3,500',
+    price: 'AED 3,500',
     priceValue: 3500
   },
   {
@@ -81,7 +81,7 @@ export const PACKAGES: Package[] = [
     category: 'City',
     image: '/japan.png',
     description: 'Immerse yourself in the blend of ancient traditions and futuristic neon lights across Tokyo and Kyoto.',
-    price: '$2,899',
+    price: 'AED 2,899',
     priceValue: 2899
   },
   {
@@ -90,7 +90,7 @@ export const PACKAGES: Package[] = [
     category: 'Nature',
     image: '/swiss.png',
     description: 'Experience the breathtaking Swiss Alps with luxury chalet stays and scenic rail journeys through snow-capped peaks.',
-    price: '$3,100',
+    price: 'AED 3,100',
     priceValue: 3100
   },
   {
@@ -99,7 +99,7 @@ export const PACKAGES: Package[] = [
     category: 'Nature',
     image: 'safari.png',
     description: 'An elite wildlife adventure through the heart of Tanzania with private guides and luxury bush camps.',
-    price: '$4,200',
+    price: 'AED 4,200',
     priceValue: 4200
   }
 ];
@@ -179,27 +179,27 @@ export const VISA_STEPS = [
 export const TEAM_VIDEOS = [
   {
     id: 1,
-    title: 'Welcome from CEO',
-    expert: 'John Doe — Chief Executive Officer',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAcP2YBTSwLYdqs7DBu-ZKvHvCuJUO6agLVOuBmhXq16hdvRTfvbBa1OHB3BXmce4vceAb3TAtzwo10m0aFU5JGjXbWhqD8x_Z1lWnCMALTVl8FMpa4xUR0KJEaxqrwaA00sv6eH3j7761C_NN_M6uEYwmjvwgLA9-Ta3ysb9eSRVs-Wdt5w1vbsfts570LHvlf3GhBukQJGAZ8e72GZM5KoEWB0P1u0-d5k8ewknLYsdgm8mkeLgflS270sHGnWUBxktLIzk1JAzrX'
+    title: 'Operational Excellence',
+    expert: 'Faizan — Managing Partner',
+    youtubeId: 'EkAG2uS0V5k'
   },
   {
     id: 2,
-    title: 'Visa Expert Insights',
-    expert: 'Sarah Smith — Senior Consultant',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDTWr1f-HrHBuP6KUvsZs04glbqiA9HCIc0HwjgfImHJlgEDg8ThWZJdA5MRK3GpHLCceCv8g8Se0xkocz3QyzjlU1mis8WkxG6e15wrC9SHVQ7e8vZK0g0x_rv_o58slJtG-XXsPJGyez3Fm-kjU9E1C_mBUW-iLWuaKR6phjsmlM0kseIXgJwQ8xT30gdPKV-98HxsaQX4HNDNrcDAJDLuDxaYiR6oKubFogUs46aFthmzhIEtAtWI3QRnhLxogiNkkRiI_eLLe5a'
+    title: 'Dubai Luxury Insights',
+    expert: 'Usama Khan — Global Strategist',
+    youtubeId: 'uSrDLdwPoaM'
   },
   {
     id: 3,
-    title: 'Customer Success Stories',
-    expert: 'David Lee — Client Relations',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA_TKSgdCvyZ3OSoqY6B8o8JvU__KVOKNKklkdUhQij_GbwQMPUwQMXokIjdFXrlinfs_5EGDxmO1c-5lZopxI2B_bkjT4CMaMVWS4IEx63olTFQefXge8eaqQUwoP87I3ZeXUkPwkZ0CInvBWL7vnIiqDEIYoK16hOV7a7l8zl3oo47BK2e0YTPLFrO-kB0dnWAStJSmWOLORrevr0Qb0RHGImCMIXBAQhYg9a4zD8Q2ByKBNeyTQtiUKgOB5aXeCOmleiWuce112L'
+    title: 'Global Logistics Update',
+    expert: 'Faizan — Managing Partner',
+    youtubeId: 'NNXon2Ek5GQ'
   },
   {
     id: 4,
-    title: 'Our Commitment to You',
-    expert: 'UNF Global Team',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBOqNgm4WiwRNxUqiIM3iYmnVUygooPQmJ-62BqBG9kTonc5TVxTmh_ODDCtHvtBOgKHmfW0hjy3kN_inEomJsSfF2189ypqZ1_TuV0_E89QetFU34Wv8w7uC9Hxadus4JXZZ2QBJxwXqA0t2ZU2XBefELYBQfhu4LvIBu8mq4RMVMKpSFbtQIWD7bHixspQHDZaHnAui4Yy9vGu9wfxqHzP66vnYdsgin0YjIkx-VunLkpqLhnLtx8lSy11IxcDHwMY6k36x-5OC3k'
+    title: 'Visa Success Secrets',
+    expert: 'Usama Khan — Global Strategist',
+    youtubeId: 'jgqolZHh9ck'
   }
 ];
 

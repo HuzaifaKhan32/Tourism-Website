@@ -29,6 +29,8 @@ interface UIContextType {
   initialLoading: boolean;
   navTransition: boolean;
   triggerNavTransition: () => void;
+  selectedPackage: { title: string; price: string; description: string; destination?: string } | null;
+  setSelectedPackage: (pkg: { title: string; price: string; description: string; destination?: string } | null) => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -42,6 +44,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   // UI State (from App.tsx)
   const [initialLoading, setInitialLoading] = useState(true);
   const [navTransition, setNavTransition] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState<{ title: string; price: string; description: string } | null>(null);
   
   // Cart/Wishlist/User State (LocalStorage persistence)
   const [cartItems, setCartItems] = useState<any[]>([]);
@@ -102,7 +105,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <UIContext.Provider value={{ initialLoading, navTransition, triggerNavTransition }}>
+    <UIContext.Provider value={{ initialLoading, navTransition, triggerNavTransition, selectedPackage, setSelectedPackage }}>
       <UserContext.Provider value={{ user, login, logout }}>
         <CartContext.Provider value={{ items: cartItems, addToCart, removeFromCart, clearCart }}>
           <WishlistContext.Provider value={{ items: wishlistItems, addToWishlist, removeFromWishlist }}>
