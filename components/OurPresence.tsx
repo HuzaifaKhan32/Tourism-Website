@@ -85,9 +85,9 @@ const OurPresence: React.FC = () => {
             className="w-full lg:w-1/2 relative"
           >
             <div className="relative aspect-video lg:aspect-square rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white dark:border-slate-800 group">
-              <Image 
-                src="/map.avif" 
-                alt="Dubai City Skyline" 
+              <Image
+                src="/map.avif"
+                alt="UNF Global Tourism office location in Dubai, UAE - Al Qusais area with city skyline"
                 fill
                 className="object-cover grayscale brightness-75 group-hover:grayscale-0 transition-all duration-700"
               />

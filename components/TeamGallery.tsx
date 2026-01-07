@@ -3,17 +3,11 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import Image from 'next/image';
 import { FaFacebookF, FaInstagram, FaTiktok } from 'react-icons/fa';
 
 const TeamGallery: React.FC = () => {
-  const router = useRouter();
-
-  const handleBack = () => {
-      router.push('/');
-  };
-
     const partners = [
       {
         name: "Usama Khan",
@@ -63,13 +57,14 @@ const TeamGallery: React.FC = () => {
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-background-dark py-20 px-6 md:px-12 lg:px-24">
       <div className="max-w-[1400px] mx-auto">
-        <button 
-          onClick={handleBack}
-          className="group flex items-center gap-2 text-slate-400 font-black text-[10px] uppercase tracking-widest mb-12 hover:text-brand-blue transition-colors"
-        >
-          <span className="material-symbols-outlined text-sm">arrow_back</span>
-          Return to Portal
-        </button>
+        <Link href="/" passHref>
+          <button
+            className="group flex items-center gap-2 text-slate-400 font-black text-[10px] uppercase tracking-widest mb-12 hover:text-brand-blue transition-colors"
+          >
+            <span className="material-symbols-outlined text-sm">arrow_back</span>
+            Return to Portal
+          </button>
+        </Link>
 
         <div className="mb-24">
           <h1 className="text-4xl md:text-7xl font-black text-slate-900 dark:text-white uppercase tracking-tighter mb-6">Expert Insights</h1>
@@ -85,11 +80,13 @@ const TeamGallery: React.FC = () => {
               <div className={`flex flex-col ${pIdx % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center gap-12 lg:gap-20 pb-16 border-b border-slate-200 dark:border-white/5`}>
                 <div className="w-full lg:w-1/3">
                   <div className="relative aspect-[4/5] rounded-[3.5rem] overflow-hidden shadow-2xl group border-8 border-white dark:border-slate-800 transition-all">
-                    <Image 
-                      src={partner.image} 
-                      alt={partner.name} 
+                    <Image
+                      src={partner.image}
+                      alt={partner.name}
                       fill
-                      className={`object-cover ${partner.objectPos} transition-transform duration-1000 group-hover:scale-105 contrast-[1.02] brightness-[1.02]`} 
+                      className={`object-cover ${partner.objectPos} transition-transform duration-1000 group-hover:scale-105 contrast-[1.02] brightness-[1.02]`}
+                      priority={pIdx === 0} // Only prioritize the first partner's image
+                      loading={pIdx === 0 ? "eager" : "lazy"}
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-blue/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </div>
@@ -101,7 +98,7 @@ const TeamGallery: React.FC = () => {
                     <p className="text-slate-400 font-bold text-xs md:text-sm uppercase tracking-[0.2em]">{partner.title}</p>
                   </div>
                   <p className="text-slate-600 dark:text-slate-300 text-lg md:text-xl leading-relaxed max-w-2xl font-medium">{partner.bio}</p>
-                  
+
                   <div className="flex gap-4 pt-4">
                     {partner.socials?.facebook && (
                         <a href={partner.socials.facebook} target="_blank" rel="noopener noreferrer" className="size-12 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-brand-blue transition-colors">
@@ -137,15 +134,21 @@ const TeamGallery: React.FC = () => {
                         <div className="relative aspect-[9/16] w-full h-full">
                             <iframe
                                 className="absolute top-0 left-0 w-full h-full"
-                                src={`https://www.youtube.com/embed/${item.youtubeId}?modestbranding=1&rel=0&iv_load_policy=3`}
+                                src={`https://www.youtube.com/embed/${item.youtubeId}?modestbranding=1&rel=0&iv_load_policy=3&autoplay=0`}
                                 title="YouTube video player"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen
                                 loading="lazy"
                             ></iframe>
                         </div>
                     ) : (
-                        <Image src={item.thumbnail} alt={item.title} fill className="object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700" />
+                        <Image
+                          src={item.thumbnail}
+                          alt={item.title}
+                          fill
+                          className="object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 transition-all duration-700"
+                          loading="lazy"
+                        />
                     )}
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors pointer-events-none"></div>
 

@@ -12,14 +12,14 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const logoUrl = "https://i.ibb.co/tPFyCrMZ/logo.png";
-  
+
   const router = useRouter();
   const { triggerNavTransition } = useUI();
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
+
     if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
       setIsDarkMode(true);
       document.documentElement.classList.add('dark');
@@ -63,7 +63,7 @@ const Header: React.FC = () => {
     <>
       <header className="sticky top-0 w-full px-6 py-3 md:px-12 lg:px-20 flex items-center justify-between z-[60] bg-white/60 dark:bg-background-dark/60 backdrop-blur-2xl border-b border-black/5 dark:border-white/5 transition-all duration-300">
         {/* Executive Branding Pill */}
-        <motion.div 
+        <motion.div
           whileHover={{ scale: 1.01 }}
           className="flex items-center cursor-pointer group"
           onClick={() => {
@@ -73,12 +73,13 @@ const Header: React.FC = () => {
           }}
         >
           <div className="bg-white px-2 py-1 rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 flex items-center gap-3">
-            <Image 
-              src={logoUrl} 
-              alt="UNF Logo" 
+            <Image
+              src={logoUrl}
+              alt="UNF Global Tourism - Dubai's Premier Travel Agency Logo"
               width={56}
               height={56}
               className="h-10 md:h-12 lg:h-14 w-auto object-contain transition-transform group-hover:scale-105"
+              priority
             />
             <div className="h-6 w-[1px] bg-slate-200"></div>
             <div className="flex flex-col pr-3">
@@ -104,7 +105,7 @@ const Header: React.FC = () => {
 
         {/* Actions */}
         <div className="flex items-center gap-3">
-          <button 
+          <button
             onClick={toggleTheme}
             className="relative flex items-center justify-center size-9 md:size-11 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-white transition-all hover:bg-slate-100 dark:hover:bg-white/10"
           >
@@ -122,8 +123,8 @@ const Header: React.FC = () => {
           </Link>
 
           {/* Styled Rounded Hamburger Menu Toggle */}
-          <button 
-            className="md:hidden flex items-center justify-center size-10 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white transition-all hover:bg-slate-100 dark:hover:bg-white/10 active:scale-90 z-[70] shadow-sm" 
+          <button
+            className="md:hidden flex items-center justify-center size-10 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white transition-all hover:bg-slate-100 dark:hover:bg-white/10 active:scale-90 z-[70] shadow-sm"
             onClick={toggleMenu}
             aria-label="Toggle Menu"
           >

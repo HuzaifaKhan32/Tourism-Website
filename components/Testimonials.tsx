@@ -56,12 +56,12 @@ const Testimonials: React.FC = () => {
               <p className="text-slate-600 dark:text-slate-300 font-medium italic mb-6">"{review.quote}"</p>
               
               <div className="flex items-center gap-4 border-t border-slate-50 dark:border-white/5 pt-6">
-                <Image 
-                  src={review.image} 
-                  alt={review.name} 
+                <Image
+                  src={review.image}
+                  alt={`Client testimonial from ${review.name} who traveled to ${review.package}`}
                   width={48}
                   height={48}
-                  className="size-12 rounded-full object-cover border-2 border-brand-blue" 
+                  className="size-12 rounded-full object-cover border-2 border-brand-blue"
                 />
                 <div>
                   <div className="flex items-center gap-1">

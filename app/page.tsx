@@ -13,10 +13,12 @@ import TeamVideos from '../components/TeamVideos';
 import FAQ from '../components/FAQ';
 import BookingSection from '../components/BookingSection';
 import OurPresence from '../components/OurPresence';
+import StructuredData from '../components/StructuredData';
 
 export default function Home() {
   return (
     <>
+      <StructuredData />
       {/* 1. Hero Section Wrapper to simulate App.tsx structure */}
       <div className="flex flex-col min-h-[calc(100vh-100px)]">
         <HeroContent />

@@ -14,10 +14,10 @@ const TeamVideos: React.FC = () => {
   return (
     <section id="team-videos" className="relative w-full py-24 lg:py-32 z-20 bg-white dark:bg-[#1B4965] overflow-hidden">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-blue/5 via-white dark:via-[#1B4965] to-white dark:to-[#0f2a3d] pointer-events-none"></div>
-      
+
       <div className="max-w-[1400px] mx-auto px-6 relative z-10 w-full flex flex-col gap-16">
         <div className="text-center space-y-4 max-w-3xl mx-auto">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -25,7 +25,7 @@ const TeamVideos: React.FC = () => {
           >
             Insights from <span className="text-brand-blue">Our Experts</span>
           </motion.h2>
-          <motion.div 
+          <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: 100 }}
             viewport={{ once: true }}
@@ -35,7 +35,7 @@ const TeamVideos: React.FC = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {TEAM_VIDEOS.map((video) => (
-            <motion.div 
+            <motion.div
               key={video.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -46,9 +46,9 @@ const TeamVideos: React.FC = () => {
               <div className="relative aspect-[9/16] w-full overflow-hidden">
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
-                  src={`https://www.youtube.com/embed/${video.youtubeId}`}
+                  src={`https://www.youtube.com/embed/${video.youtubeId}?modestbranding=1&rel=0&iv_load_policy=3&autoplay=0`}
                   title="YouTube video player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                   loading="lazy"
                 ></iframe>
@@ -66,7 +66,7 @@ const TeamVideos: React.FC = () => {
           ))}
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

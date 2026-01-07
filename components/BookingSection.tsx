@@ -58,11 +58,11 @@ const BookingSection: React.FC = () => {
         {/* Left Decorative Panel */}
         <div className="w-full lg:w-1/3 bg-primary text-white p-10 lg:p-16 flex flex-col justify-between relative overflow-hidden">
           <div className="absolute inset-0 bg-[#1B4965] opacity-20 z-0"></div>
-          <Image 
-            alt="landscape" 
+          <Image
+            alt="UNF Global Tourism booking consultation desk with travel experts assisting clients"
             fill
-            className="object-cover opacity-20 z-0 grayscale mix-blend-overlay" 
-            src="/booking.avif" 
+            className="object-cover opacity-20 z-0 grayscale mix-blend-overlay"
+            src="/booking.avif"
             sizes="(max-width: 1024px) 100vw, 33vw"
           />
           

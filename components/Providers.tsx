@@ -45,19 +45,11 @@ export function Providers({ children }: { children: React.ReactNode }) {
   const [initialLoading, setInitialLoading] = useState(true);
   const [navTransition, setNavTransition] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState<{ title: string; price: string; description: string } | null>(null);
-  
+
   // Cart/Wishlist/User State (LocalStorage persistence)
   const [cartItems, setCartItems] = useState<any[]>([]);
   const [wishlistItems, setWishlistItems] = useState<any[]>([]);
   const [user, setUser] = useState<any | null>(null);
-
-  // Initialize UI Loading
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setInitialLoading(false);
-    }, 2000);
-    return () => clearTimeout(timer);
-  }, []);
 
   // Initialize LocalStorage Data
   useEffect(() => {
@@ -70,21 +62,31 @@ export function Providers({ children }: { children: React.ReactNode }) {
       if (savedWishlist) setWishlistItems(JSON.parse(savedWishlist));
       if (savedUser) setUser(JSON.parse(savedUser));
     }
+
+    // Set initial loading to false after localStorage is initialized
+    // This ensures the loading screen only shows as long as needed
+    setInitialLoading(false);
   }, []);
 
   // Sync with LocalStorage
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartItems));
-  }, [cartItems]);
+    if (!initialLoading) { // Only sync after initial loading is complete
+      localStorage.setItem('cart', JSON.stringify(cartItems));
+    }
+  }, [cartItems, initialLoading]);
 
   useEffect(() => {
-    localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
-  }, [wishlistItems]);
+    if (!initialLoading) { // Only sync after initial loading is complete
+      localStorage.setItem('wishlist', JSON.stringify(wishlistItems));
+    }
+  }, [wishlistItems, initialLoading]);
 
   useEffect(() => {
-    if (user) localStorage.setItem('user', JSON.stringify(user));
-    else localStorage.removeItem('user');
-  }, [user]);
+    if (!initialLoading) { // Only sync after initial loading is complete
+      if (user) localStorage.setItem('user', JSON.stringify(user));
+      else localStorage.removeItem('user');
+    }
+  }, [user, initialLoading]);
 
   // Actions
   const addToCart = (item: any) => setCartItems(prev => [...prev, item]);
@@ -111,7 +113,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
           <WishlistContext.Provider value={{ items: wishlistItems, addToWishlist, removeFromWishlist }}>
             <LoadingScreen isLoading={initialLoading} />
             <LoadingScreen isLoading={navTransition} />
-            {children}
+            {initialLoading ? null : children}
           </WishlistContext.Provider>
         </CartContext.Provider>
       </UserContext.Provider>

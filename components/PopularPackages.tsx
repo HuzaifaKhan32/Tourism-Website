@@ -5,6 +5,7 @@ import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PACKAGES, Package } from '../constants';
 import { useUI } from './Providers';
+import Image from 'next/image';
 
 type Category = 'All' | 'Beach' | 'City' | 'Nature';
 type SortOrder = 'none' | 'low-to-high' | 'high-to-low';
@@ -25,9 +26,9 @@ const PopularPackages: React.FC = () => {
       'safari': 'safari'
     };
 
-    setSelectedPackage({ 
-      title: pkg.title, 
-      price: pkg.price, 
+    setSelectedPackage({
+      title: pkg.title,
+      price: pkg.price,
       description: pkg.description,
       destination: destinationMapping[pkg.id] || 'custom'
     });
@@ -60,7 +61,7 @@ const PopularPackages: React.FC = () => {
       <div className="max-w-[1400px] mx-auto px-6">
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-12">
-          <motion.h2 
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -68,7 +69,7 @@ const PopularPackages: React.FC = () => {
           >
             Popular Packages
           </motion.h2>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -122,60 +123,76 @@ const PopularPackages: React.FC = () => {
         <div className="relative group">
           <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-12 pt-4 px-4 -mx-4 custom-scrollbar scroll-smooth scrollbar-hide min-h-[500px]">
             <AnimatePresence mode="popLayout">
-              {filteredAndSortedPackages.map((pkg) => (
-                <motion.div 
-                  key={pkg.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
-                  className="snap-center shrink-0 w-[300px] sm:w-[380px] group/card"
-                >
-                  <div className="h-full flex flex-col bg-white dark:bg-slate-800 rounded-[20px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 dark:border-slate-700 overflow-hidden transition-all duration-500 ease-out hover:-translate-y-3 hover:shadow-[0_25px_50px_-12px_rgba(43,94,125,0.3)] dark:hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)]">
-                    {/* Image Header with Overlay */}
-                    <div className="relative h-64 w-full overflow-hidden">
-                      <div 
-                        className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover/card:scale-110" 
-                        style={{ backgroundImage: `url("${pkg.image}")` }}
-                      />
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-brand-blue/90 via-brand-blue/40 to-transparent"></div>
-                      
-                      {/* Category Badge */}
-                      <div className="absolute top-4 left-4 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
-                        <span className="text-white text-[10px] font-bold uppercase tracking-widest">{pkg.category}</span>
-                      </div>
+              {filteredAndSortedPackages.map((pkg) => {
+                // Check if the image is a local path or external URL
+                const isLocalImage = pkg.image.startsWith('/') || pkg.image.startsWith('./');
 
-                      {/* Destination Title on Image */}
-                      <div className="absolute bottom-0 left-0 w-full p-6">
-                        <h3 className="text-white text-2xl font-bold tracking-tight drop-shadow-md">{pkg.title}</h3>
-                      </div>
-                    </div>
+                return (
+                  <motion.div
+                    key={pkg.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    className="snap-center shrink-0 w-[300px] sm:w-[380px] group/card"
+                  >
+                    <div className="h-full flex flex-col bg-white dark:bg-slate-800 rounded-[20px] shadow-[0_4px_20px_-4px_rgba(0,0,0,0.1)] border border-slate-100 dark:border-slate-700 overflow-hidden transition-all duration-500 ease-out hover:-translate-y-3 hover:shadow-[0_25px_50px_-12px_rgba(43,94,125,0.3)] dark:hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)]">
+                      {/* Image Header with Overlay */}
+                      <div className="relative h-64 w-full overflow-hidden">
+                        {isLocalImage ? (
+                          <Image
+                            src={pkg.image}
+                            alt={`Luxury ${pkg.title} travel package - ${pkg.description.substring(0, 50)}...`}
+                            fill
+                            className="object-cover transition-transform duration-700 group-hover/card:scale-110"
+                            sizes="(max-width: 640px) 300px, (max-width: 768px) 380px, 380px"
+                            priority={false}
+                          />
+                        ) : (
+                          <div
+                            className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover/card:scale-110"
+                            style={{ backgroundImage: `url("${pkg.image}")` }}
+                          />
+                        )}
+                        {/* Gradient Overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-brand-blue/90 via-brand-blue/40 to-transparent"></div>
 
-                    {/* Card Body */}
-                    <div className="flex flex-col grow p-6 pt-5">
-                      <div className="flex-grow">
-                        <p className="text-slate-500 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6 font-medium">
-                          {pkg.description}
-                        </p>
-                      </div>
-                      <div className="mt-auto pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between gap-4">
-                        <div className="flex flex-col">
-                          <span className="text-brand-blue dark:text-sky-400 text-2xl font-bold tracking-tight">{pkg.price}</span>
-                          <span className="text-xs text-slate-400 font-bold uppercase tracking-widest">/person</span>
+                        {/* Category Badge */}
+                        <div className="absolute top-4 left-4 px-3 py-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full">
+                          <span className="text-white text-[10px] font-bold uppercase tracking-widest">{pkg.category}</span>
                         </div>
-                        <button 
-                          onClick={() => handleBookNow(pkg)}
-                          className="flex-shrink-0 bg-brand-blue hover:bg-accent-blue text-white px-6 py-3 rounded-xl text-sm font-bold transition-all shadow-md active:scale-95"
-                        >
-                          Book Now
-                        </button>
+
+                        {/* Destination Title on Image */}
+                        <div className="absolute bottom-0 left-0 w-full p-6">
+                          <h3 className="text-white text-2xl font-bold tracking-tight drop-shadow-md">{pkg.title}</h3>
+                        </div>
+                      </div>
+
+                      {/* Card Body */}
+                      <div className="flex flex-col grow p-6 pt-5">
+                        <div className="flex-grow">
+                          <p className="text-slate-500 dark:text-slate-300 text-sm sm:text-base leading-relaxed mb-6 font-medium">
+                            {pkg.description}
+                          </p>
+                        </div>
+                        <div className="mt-auto pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between gap-4">
+                          <div className="flex flex-col">
+                            <span className="text-brand-blue dark:text-sky-400 text-2xl font-bold tracking-tight">{pkg.price}</span>
+                            <span className="text-xs text-slate-400 font-bold uppercase tracking-widest">/person</span>
+                          </div>
+                          <button
+                            onClick={() => handleBookNow(pkg)}
+                            className="flex-shrink-0 bg-brand-blue hover:bg-accent-blue text-white px-6 py-3 rounded-xl text-sm font-bold transition-all shadow-md active:scale-95"
+                          >
+                            Book Now
+                          </button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </AnimatePresence>
             {/* Spacer for nice scrolling end */}
             <div className="shrink-0 w-4"></div>
@@ -191,7 +208,7 @@ const PopularPackages: React.FC = () => {
 
         {/* Empty State */}
         {filteredAndSortedPackages.length === 0 && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="text-center py-20"
