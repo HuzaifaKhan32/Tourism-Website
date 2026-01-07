@@ -25,8 +25,8 @@ const HeroContent: React.FC = () => {
           Dubai's Premier Tourism Experts
         </motion.div>
 
-        <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-[80px] font-black leading-[1.1] tracking-tight mb-6 sm:mb-8 drop-shadow-2xl max-w-5xl uppercase">
-          Premium Dubai Travel Agency<br className="hidden sm:block"/> Visa Consultancy Experts
+        <h1 className="text-white text-4xl sm:text-5xl md:text-6xl lg:text-[70px] font-black leading-[1.1] tracking-tight mb-6 sm:mb-8 drop-shadow-2xl max-w-5xl uppercase">
+          Your Dream Journey <br className="hidden sm:block"/> Starts Here
         </h1>
 
         <p className="text-white/80 text-sm sm:text-base md:text-lg lg:text-[1.15rem] font-medium leading-relaxed max-w-3xl mb-10 sm:mb-14 drop-shadow-lg mx-auto">
@@ -53,7 +53,7 @@ const HeroContent: React.FC = () => {
               transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
               className="absolute inset-0 bg-white/20 rounded-full"
             />
-            <span className="relative z-10">Explore Dubai Tours</span>
+            <span className="relative z-10">Explore Destinations</span>
             <span className="relative z-10 material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">
               arrow_forward
             </span>

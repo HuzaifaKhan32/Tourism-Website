@@ -36,10 +36,10 @@ const AboutUs: React.FC = () => {
           className="flex flex-col items-center text-center mb-16"
         >
           <span className="text-brand-blue dark:text-light-blue font-black tracking-[0.3em] text-[10px] uppercase bg-brand-blue/10 px-4 py-2 rounded-full mb-4">
-            Dubai's Premier Tourism Experts
+            About UNF Global
           </span>
           <h2 className="text-slate-900 dark:text-white text-3xl md:text-4xl font-black uppercase tracking-tight">
-            UNF Global Tourism - Leading Dubai Travel Agency Since 2009
+            UNF Global Tourism
           </h2>
           <div className="h-1 w-20 bg-brand-blue rounded-full mt-4" />
         </motion.div>
