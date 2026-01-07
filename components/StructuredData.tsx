@@ -103,20 +103,6 @@ const StructuredData = () => {
         name: 'UNF Global Tourism'
       }
     })),
-    areaServed: [
-      {
-        '@type': 'Place',
-        name: 'Dubai'
-      },
-      {
-        '@type': 'Place',
-        name: 'UAE'
-      },
-      {
-        '@type': 'Place',
-        name: 'Worldwide'
-      }
-    ],
     award: 'Best Tourism Agency Dubai 2023',
     paymentAccepted: ['Cash', 'Check', 'Credit Card'],
     priceRange: '$$$',
